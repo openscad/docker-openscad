@@ -2,7 +2,7 @@
 # Build: docker build -t x86_64-w64-mingw32.static.posix .
 # Use: docker run --rm -it x86_64-w64-mingw32.static.posix
 #
-FROM openscad:mxe-requirements
+FROM openscad/mxe-requirements:latest
 
 ENV MXE_TARGETS=x86_64-w64-mingw32.static.posix
 
