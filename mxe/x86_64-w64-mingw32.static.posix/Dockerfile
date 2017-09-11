@@ -6,7 +6,7 @@ FROM mxe-requirements
 
 ENV MXE_TARGETS=x86_64-w64-mingw32.static.posix
 
-WORKDIR /mxe
+WORKDIR /
 
 RUN git clone https://github.com/mxe/mxe
-make gcc 
+RUN cd mxe && make gcc 
