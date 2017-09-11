@@ -1,0 +1,12 @@
+#
+# Build: docker build -t x86_64-w64-mingw32.static.posix .
+# Use: docker run --rm -it x86_64-w64-mingw32.static.posix
+#
+FROM mxe-requirements
+
+ENV MXE_TARGETS=x86_64-w64-mingw32.static.posix
+
+WORKDIR /mxe
+
+RUN git clone https://github.com/mxe/mxe
+make gcc 
