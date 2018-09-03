@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  mxe-requirements:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          command: docker pull openscad/mxe-requirements:latest
+      - run:
+          command: docker build --cache-from openscad/mxe-requirements:latest -t openscad/mxe-requirements:latest mxe/mxe-requirements
+      - run:
+          command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+      - run:
+          command: docker push openscad/mxe-requirements:latest
+workflows:
+  version: 2
+  build:
+    jobs:
+      - mxe-requirements
