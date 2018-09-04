@@ -7,7 +7,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker pull openscad/mxe-requirements:latest
+          command: docker pull openscad/mxe-requirements:latest || true
       - run:
           command: docker build --cache-from openscad/mxe-requirements:latest -t openscad/mxe-requirements:latest mxe/mxe-requirements
       - run:
@@ -21,7 +21,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker pull openscad/mxe-x86_64-gcc:latest
+          command: docker pull openscad/mxe-x86_64-gcc:latest || true
       - run:
           command: docker build --cache-from openscad/mxe-x86_64-gcc:latest -t openscad/mxe-x86_64-gcc:latest mxe/mxe-x86_64-gcc
           no_output_timeout: 18000
@@ -36,7 +36,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker pull openscad/mxe-x86_64-deps:latest
+          command: docker pull openscad/mxe-x86_64-deps:latest || true
       - run:
           command: docker build --cache-from openscad/mxe-x86_64-deps:latest -t openscad/mxe-x86_64-deps:latest mxe/mxe-x86_64-deps
           no_output_timeout: 18000
