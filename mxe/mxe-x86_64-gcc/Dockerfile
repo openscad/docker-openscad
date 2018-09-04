@@ -1,6 +1,6 @@
 #
-# Build: docker build -t x86_64-w64-mingw32.static.posix .
-# Use: docker run --rm -it x86_64-w64-mingw32.static.posix
+# Build: docker build -t mxe-x86_64-gcc .
+# Use: docker run --rm -it mxe-x86_64-gcc
 #
 FROM openscad/mxe-requirements:latest
 

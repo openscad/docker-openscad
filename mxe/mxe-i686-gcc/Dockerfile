@@ -1,6 +1,6 @@
 #
-# Build: docker build -t i686-w64-mingw32.static.posix .
-# Use: docker run --rm -it i686-w64-mingw32.static.posix
+# Build: docker build -t mxe-i686-gcc .
+# Use: docker run --rm -it mxe-i686-gcc
 #
 FROM openscad/mxe-requirements:latest
 
