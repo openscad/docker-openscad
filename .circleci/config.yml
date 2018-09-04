@@ -24,6 +24,7 @@ jobs:
           command: docker pull openscad/mxe-x86_64-gcc:latest
       - run:
           command: docker build --cache-from openscad/mxe-x86_64-gcc:latest -t openscad/mxe-x86_64-gcc:latest mxe/mxe-x86_64-gcc
+          no_output_timeout: 18000
       - run:
           command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
       - run:
