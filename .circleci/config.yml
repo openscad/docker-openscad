@@ -44,6 +44,21 @@ jobs:
           command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
       - run:
           command: docker push openscad/mxe-x86_64-deps:latest
+  mxe-openscad:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          command: docker pull openscad/mxe-openscad:latest || true
+      - run:
+          command: docker build --cache-from openscad/mxe-openscad:latest -t openscad/mxe-openscad:latest mxe/mxe-openscad
+          no_output_timeout: 18000
+      - run:
+          command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+      - run:
+          command: docker push openscad/mxe-openscad:latest
 workflows:
   version: 2
   build:
@@ -55,3 +70,6 @@ workflows:
       - mxe-x86_64-deps:
          requires:
            - mxe-x86_64-gcc
+      - mxe-openscad:
+         requires:
+           - mxe-x86_64-deps
