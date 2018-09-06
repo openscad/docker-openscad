@@ -4,9 +4,7 @@
 #
 FROM openscad/mxe-requirements:latest
 
-ENV MXE_TARGETS=x86_64-w64-mingw32.static.posix
-
 WORKDIR /
 
 RUN git clone https://github.com/mxe/mxe
-RUN cd mxe && make gcc 
+RUN cd mxe && make MXE_TARGETS=x86_64-w64-mingw32.static.posix gcc 

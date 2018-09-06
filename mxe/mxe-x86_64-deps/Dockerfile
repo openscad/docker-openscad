@@ -4,8 +4,6 @@
 #
 FROM openscad/mxe-x86_64-gcc:latest
 
-ENV MXE_TARGETS=x86_64-w64-mingw32.static.posix
-
 WORKDIR /mxe
 
-RUN make qtbase qtmultimedia qscintilla2 mpfr eigen opencsg cgal nsis glib libxml2 freetype fontconfig harfbuzz libzip
+RUN make MXE_TARGETS=x86_64-w64-mingw32.static.posix qtbase qtmultimedia qscintilla2 mpfr eigen opencsg cgal nsis glib libxml2 freetype fontconfig harfbuzz libzip

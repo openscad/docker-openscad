@@ -4,8 +4,6 @@
 #
 FROM openscad/mxe-x86_64-deps:latest
 
-ENV MXE_TARGETS=x86_64-w64-mingw32.static.posix
-
 WORKDIR /
 
 RUN git clone https://github.com/openscad/openscad
