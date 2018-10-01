@@ -2,10 +2,10 @@
 # Build: docker build -t openscad/mxe-openscad .
 # Use: docker run --rm -it openscad/mxe-openscad
 #
-FROM openscad/mxe-x86_64-deps:latest
+FROM openscad/mxe-i686-deps:latest
 
 WORKDIR /
 RUN git clone https://github.com/openscad/openscad
 
 WORKDIR /openscad
-RUN export MXEDIR=/mxe ; . ./scripts/setenv-mingw-xbuild.sh 64 && ./scripts/release-common.sh mingw64
+RUN export MXEDIR=/mxe ; . ./scripts/setenv-mingw-xbuild.sh 32 && ./scripts/release-common.sh -snapshot mingw32
