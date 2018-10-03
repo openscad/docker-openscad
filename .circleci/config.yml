@@ -51,16 +51,14 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker pull openscad/mxe-x86_64-openscad:latest || true
-      - run:
-          command: docker build --cache-from openscad/mxe-x86_64-openscad:latest -t openscad/mxe-x86_64-openscad:latest mxe/mxe-x86_64-openscad
           no_output_timeout: 18000
-      - run:
-          command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run:
-          command: docker push openscad/mxe-x86_64-openscad:latest
-      - run:
-          command: mkdir -p /out && cp -v /openscad/mingw32.static.posix/OpenSCAD-*-x86-64* /out/
+          command: |
+              mkdir -p /out
+              docker pull openscad/mxe-x86_64-openscad:latest || true
+              docker build --cache-from openscad/mxe-x86_64-openscad:latest -t openscad/mxe-x86_64-openscad:latest mxe/mxe-x86_64-openscad
+              docker run openscad/mxe-x86_64-openscad:latest | tar -x -v /out
+              docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+              docker push openscad/mxe-x86_64-openscad:latest
       - store_artifacts:
           path: /out
           destination: 64-bit
@@ -101,16 +99,14 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker pull openscad/mxe-i686-openscad:latest || true
-      - run:
-          command: docker build --cache-from openscad/mxe-i686-openscad:latest -t openscad/mxe-i686-openscad:latest mxe/mxe-i686-openscad
           no_output_timeout: 18000
-      - run:
-          command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run:
-          command: docker push openscad/mxe-i686-openscad:latest
-      - run:
-          command: mkdir -p /out && cp -v /openscad/mingw32.static.posix/OpenSCAD-*-x86-32* /out/
+          command: |
+              mkdir -p /out
+              docker pull openscad/mxe-i686-openscad:latest || true
+              docker build --cache-from openscad/mxe-i686-openscad:latest -t openscad/mxe-i686-openscad:latest mxe/mxe-i686-openscad
+              docker run openscad/mxe-i686-openscad:latest | tar -x -v /out
+              docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+              docker push openscad/mxe-i686-openscad:latest
       - store_artifacts:
           path: /out
           destination: 32-bit
@@ -118,22 +114,22 @@ workflows:
   version: 2
   build:
     jobs:
-      - mxe-requirements
-      - mxe-x86_64-gcc:
-         requires:
-           - mxe-requirements
-      - mxe-x86_64-deps:
-         requires:
-           - mxe-x86_64-gcc
+#      - mxe-requirements
+#      - mxe-x86_64-gcc:
+#         requires:
+#           - mxe-requirements
+#      - mxe-x86_64-deps:
+#         requires:
+#           - mxe-x86_64-gcc
       - mxe-x86_64-openscad:
          requires:
            - mxe-x86_64-deps
-      - mxe-i686-gcc:
-         requires:
-           - mxe-requirements
-      - mxe-i686-deps:
-         requires:
-           - mxe-i686-gcc
-#      - mxe-i686-openscad:
+#      - mxe-i686-gcc:
 #         requires:
-#           - mxe-i686-deps
+#           - mxe-requirements
+#      - mxe-i686-deps:
+#         requires:
+#           - mxe-i686-gcc
+      - mxe-i686-openscad:
+         requires:
+           - mxe-i686-deps

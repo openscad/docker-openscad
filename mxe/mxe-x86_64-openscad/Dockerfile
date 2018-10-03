@@ -9,3 +9,5 @@ RUN git clone https://github.com/openscad/openscad
 
 WORKDIR /openscad
 RUN export MXEDIR=/mxe ; . ./scripts/setenv-mingw-xbuild.sh 64 && ./scripts/release-common.sh -snapshot mingw64
+
+ENTRYPOINT tar --create -C mingw32.static.posix --exclude "./[^O]*" .
