@@ -122,8 +122,8 @@ workflows:
 #         requires:
 #           - mxe-x86_64-gcc
       - mxe-x86_64-openscad:
-         requires:
-           - mxe-x86_64-deps
+#         requires:
+#           - mxe-x86_64-deps
 #      - mxe-i686-gcc:
 #         requires:
 #           - mxe-requirements
@@ -131,5 +131,5 @@ workflows:
 #         requires:
 #           - mxe-i686-gcc
       - mxe-i686-openscad:
-         requires:
-           - mxe-i686-deps
+#         requires:
+#           - mxe-i686-deps
