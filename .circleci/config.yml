@@ -50,11 +50,8 @@ jobs:
           no_output_timeout: 18000
           command: |
               mkdir -p /tmp/out
-              docker pull openscad/mxe-x86_64-openscad:latest || true
               docker build --cache-from openscad/mxe-x86_64-openscad:latest -t openscad/mxe-x86_64-openscad:latest mxe/mxe-x86_64-openscad
               docker run openscad/mxe-x86_64-openscad:latest | tar -x -v -C /tmp/out
-              docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-              docker push openscad/mxe-x86_64-openscad:latest
       - store_artifacts:
           path: /tmp/out
           destination: 64-bit
@@ -94,11 +91,8 @@ jobs:
           no_output_timeout: 18000
           command: |
               mkdir -p /tmp/out
-              docker pull openscad/mxe-i686-openscad:latest || true
-              docker build --cache-from openscad/mxe-i686-openscad:latest -t openscad/mxe-i686-openscad:latest mxe/mxe-i686-openscad
+              docker build -t openscad/mxe-i686-openscad:latest mxe/mxe-i686-openscad
               docker run openscad/mxe-i686-openscad:latest | tar -x -v -C /tmp/out
-              docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-              docker push openscad/mxe-i686-openscad:latest
       - store_artifacts:
           path: /tmp/out
           destination: 32-bit
