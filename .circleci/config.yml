@@ -34,14 +34,12 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker pull openscad/mxe-x86_64-deps:latest || true
-      - run:
-          command: docker build --cache-from openscad/mxe-x86_64-deps:latest -t openscad/mxe-x86_64-deps:latest mxe/mxe-x86_64-deps
           no_output_timeout: 18000
-      - run:
-          command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run:
-          command: docker push openscad/mxe-x86_64-deps:latest
+          command: |
+              docker pull openscad/mxe-x86_64-deps:latest || true
+              docker build --cache-from openscad/mxe-requirements:latest --cache-from openscad/mxe-x86_64-gcc:latest --cache-from openscad/mxe-x86_64-deps:latest -t openscad/mxe-x86_64-deps:latest mxe/mxe-x86_64-deps
+              docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+              docker push openscad/mxe-x86_64-deps:latest
   mxe-x86_64-openscad:
     docker:
       - image: circleci/node:8
@@ -80,14 +78,12 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker pull openscad/mxe-i686-deps:latest || true
-      - run:
-          command: docker build --cache-from openscad/mxe-i686-deps:latest -t openscad/mxe-i686-deps:latest mxe/mxe-i686-deps
           no_output_timeout: 18000
-      - run:
-          command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run:
-          command: docker push openscad/mxe-i686-deps:latest
+          command: |
+              docker pull openscad/mxe-i686-deps:latest || true
+              docker build --cache-from openscad/mxe-requirements:latest --cache-from openscad/mxe-i686-gcc:latest --cache-from openscad/mxe-i686-deps:latest -t openscad/mxe-i686-deps:latest mxe/mxe-i686-deps
+              docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+              docker push openscad/mxe-i686-deps:latest
   mxe-i686-openscad:
     docker:
       - image: circleci/node:8
@@ -114,18 +110,18 @@ workflows:
       - mxe-x86_64-gcc:
          requires:
            - mxe-requirements
-#      - mxe-x86_64-deps:
-#         requires:
-#           - mxe-x86_64-gcc
+      - mxe-x86_64-deps:
+         requires:
+           - mxe-x86_64-gcc
 #      - mxe-x86_64-openscad:
 #         requires:
 #           - mxe-x86_64-deps
       - mxe-i686-gcc:
          requires:
            - mxe-requirements
-#      - mxe-i686-deps:
-#         requires:
-#           - mxe-i686-gcc
+      - mxe-i686-deps:
+         requires:
+           - mxe-i686-gcc
 #      - mxe-i686-openscad:
 #         requires:
 #           - mxe-i686-deps
