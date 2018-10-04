@@ -50,7 +50,7 @@ jobs:
           no_output_timeout: 18000
           command: |
               mkdir -p /tmp/out
-              docker build --cache-from openscad/mxe-x86_64-openscad:latest -t openscad/mxe-x86_64-openscad:latest mxe/mxe-x86_64-openscad
+              docker build -t openscad/mxe-x86_64-openscad:latest --build-arg SUFFIX="-ci${CIRCLE_BUILD_NUM}" --build-arg OPENSCAD_VERSION="$(date +%Y.%m.%d).ci${CIRCLE_BUILD_NUM}" mxe/mxe-x86_64-openscad
               docker run openscad/mxe-x86_64-openscad:latest | tar -x -v -C /tmp/out
       - store_artifacts:
           path: /tmp/out
@@ -91,7 +91,7 @@ jobs:
           no_output_timeout: 18000
           command: |
               mkdir -p /tmp/out
-              docker build -t openscad/mxe-i686-openscad:latest mxe/mxe-i686-openscad
+              docker build -t openscad/mxe-i686-openscad:latest --build-arg SUFFIX="-ci${CIRCLE_BUILD_NUM}" --build-arg OPENSCAD_VERSION="$(date +%Y.%m.%d).ci${CIRCLE_BUILD_NUM}" mxe/mxe-i686-openscad
               docker run openscad/mxe-i686-openscad:latest | tar -x -v -C /tmp/out
       - store_artifacts:
           path: /tmp/out

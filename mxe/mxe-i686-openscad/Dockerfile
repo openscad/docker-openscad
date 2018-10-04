@@ -4,17 +4,13 @@
 #
 FROM openscad/mxe-i686-deps:latest
 
+ARG SUFFIX=
+ARG OPENSCAD_VERSION=
+
 WORKDIR /openscad
 RUN git clone https://github.com/openscad/openscad .
 RUN \
 	export MXEDIR=/mxe ; \
-	if [ x"$CIRCLECI" = xtrue ]; then \
-		export SUFFIX="-ci${CIRCLE_BUILD_NUM}"; \
-		export OPENSCAD_VERSION="$(date +%Y.%m.%d).${CIRCLE_BUILD_NUM}"; \
-	else \
-		export SUFFIX=""; \
-		export OPENSCAD_VERSION="$(date +%Y.%m.%d)"; \
-	fi; \
 	. ./scripts/setenv-mingw-xbuild.sh 32 && ./scripts/release-common.sh -snapshot -mingw32 -v "$OPENSCAD_VERSION"; \
 	mkdir -p out; \
 	for f in mingw*/*.zip mingw*/*.exe; do \
