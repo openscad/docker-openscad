@@ -5,10 +5,15 @@
 FROM openscad/mxe-i686-deps:latest
 
 ARG SUFFIX=
+ARG BRANCH=master
 ARG OPENSCAD_VERSION=
 
 WORKDIR /openscad
-RUN git clone https://github.com/openscad/openscad .
+RUN \
+	git clone https://github.com/openscad/openscad . && \
+	git checkout "${BRANCH}" && \
+	git rev-parse --abbrev-ref HEAD && \
+	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 RUN \
 	export MXEDIR=/mxe ; \
 	. ./scripts/setenv-mingw-xbuild.sh 32 && ./scripts/release-common.sh -snapshot -mingw32 -v "$OPENSCAD_VERSION"; \
