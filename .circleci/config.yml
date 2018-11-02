@@ -7,13 +7,13 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker pull openscad/mxe-requirements:latest || true
-      - run:
-          command: docker build --cache-from openscad/mxe-requirements:latest -t openscad/mxe-requirements:latest mxe/mxe-requirements
-      - run:
-          command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-      - run:
-          command: docker push openscad/mxe-requirements:latest
+          name: Build MXE base image
+          no_output_timeout: 18000
+          command: |
+              docker pull openscad/mxe-requirements:latest || true
+              docker build --cache-from openscad/mxe-requirements:latest -t openscad/mxe-requirements:latest mxe/mxe-requirements
+              docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+              docker push openscad/mxe-requirements:latest
   mxe-x86_64-gcc:
     docker:
       - image: circleci/node:8
@@ -21,6 +21,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Build MXE gcc (64bit)
           no_output_timeout: 18000
           command: |
               docker pull openscad/mxe-x86_64-gcc:latest || true
@@ -34,6 +35,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Build MXE dependencies (64bit)
           no_output_timeout: 18000
           command: |
               docker pull openscad/mxe-x86_64-deps:latest || true
@@ -47,6 +49,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Build MXE OpenSCAD (64bit)
           no_output_timeout: 18000
           command: |
               mkdir -p /tmp/out
@@ -62,6 +65,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Build MXE gcc (32bit)
           no_output_timeout: 18000
           command: |
               docker pull openscad/mxe-i686-gcc:latest || true
@@ -75,6 +79,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Build MXE dependencies (32bit)
           no_output_timeout: 18000
           command: |
               docker pull openscad/mxe-i686-deps:latest || true
@@ -88,6 +93,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
+          name: Build MXE OpenSCAD (32bit)
           no_output_timeout: 18000
           command: |
               mkdir -p /tmp/out
