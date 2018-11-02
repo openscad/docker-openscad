@@ -4,7 +4,11 @@
 #
 FROM openscad/mxe-requirements:latest
 
+ARG JOBS=2
+ARG BRANCH=openscad-snapshot-build
+ARG URL=https://github.com/openscad/mxe
+
 WORKDIR /mxe
 
-RUN git clone https://github.com/mxe/mxe . || git pull origin master
-RUN make JOBS=2 -j2 MXE_PLUGIN_DIRS=plugins/gcc7 MXE_TARGETS=i686-w64-mingw32.static.posix gcc
+RUN git clone "${URL}" . || git pull origin "${BRANCH}"
+RUN make "JOBS=${JOBS}" "-j${JOBS}" MXE_PLUGIN_DIRS=plugins/gcc7 MXE_TARGETS=i686-w64-mingw32.static.posix gcc
