@@ -16,6 +16,7 @@ RUN \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 RUN \
 	export MXEDIR=/mxe ; \
+	export LIB3MF_INCLUDEPATH=/mxe/usr/x86_64-w64-mingw32.static.posix/include/lib3mf ; \
 	. ./scripts/setenv-mingw-xbuild.sh 64 && ./scripts/release-common.sh -snapshot -mingw64 -v "$OPENSCAD_VERSION"; \
 	mkdir -p out; \
 	for f in mingw*/*.zip mingw*/*.exe; do \
