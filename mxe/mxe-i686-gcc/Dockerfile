@@ -6,12 +6,16 @@ FROM openscad/mxe-requirements:latest
 
 ARG JOBS=2
 ARG BRANCH=openscad-snapshot-build
-ARG URL=https://github.com/openscad/mxe
+ARG GITHUB_USER=openscad
+ARG GITHUB_REPO=mxe
 
 WORKDIR /mxe
 
+# Invalidate docker cache if the branch changes
+ADD https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/refs/heads/${BRANCH} version.json
+
 RUN \
-	git clone "${URL}" . && \
+	git clone "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
 	git checkout "${BRANCH}" && \
 	git rev-parse --abbrev-ref HEAD && \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
