@@ -15,6 +15,7 @@ WORKDIR /mxe
 ADD https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/refs/heads/${BRANCH} version.json
 
 RUN \
+	cat version.json && rm -f version.json && \
 	git clone "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
 	git checkout "${BRANCH}" && \
 	git rev-parse --abbrev-ref HEAD && \
