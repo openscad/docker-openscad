@@ -6,9 +6,12 @@ FROM debian:jessie
 
 ARG BRANCH=master
 
-RUN apt-get update
-
-RUN apt-get install -y --no-install-recommends git
+RUN \
+	cat /etc/apt/sources.list && \
+	echo 'deb http://security.debian.org/debian-security/ jessie/updates main' >> /etc/apt/sources.list && \
+	apt-get update && \
+	apt-get upgrade -y && \
+	apt-get install -y --no-install-recommends git
 
 WORKDIR /openscad
 
