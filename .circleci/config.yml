@@ -1,19 +1,19 @@
 version: 2
 jobs:
-  appimage-armv7l-base:
+  appimage-x86_64-base:
     docker:
       - image: circleci/node:8
     steps:
       - checkout
       - setup_remote_docker
       - run:
-          name: Build AppImage (armv7l) base image
+          name: Build AppImage (x86_64) base image
           no_output_timeout: 18000
           command: |
-              docker pull openscad/appimage-armv7l-base:latest || true
-              docker build --cache-from openscad/appimage-armv7l-base:latest -t openscad/appimage-armv7l-base:latest appimage/appimage-armv7l-base
+              docker pull openscad/appimage-x86_64-base:latest || true
+              docker build --cache-from openscad/appimage-x86_64-base:latest -t openscad/appimage-x86_64-base:latest appimage/appimage-x86_64-base
               docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-              #docker push openscad/mxe-requirements:latest
+              #docker push openscad/appimage-x86_64-base:latest
   mxe-requirements:
     docker:
       - image: circleci/node:8
@@ -120,7 +120,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - appimage-armv7l-base
+      - appimage-x86_64-base
       - mxe-requirements
       - mxe-x86_64-gcc:
          requires:
