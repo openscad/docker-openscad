@@ -8,10 +8,9 @@ ARG BRANCH=master
 
 RUN \
 	cat /etc/apt/sources.list && \
-	echo 'deb http://security.debian.org/debian-security/ jessie/updates main' >> /etc/apt/sources.list && \
 	apt-get update && \
 	apt-get upgrade -y && \
-	apt-get install -y --no-install-recommends git
+	apt-get install -y --no-install-recommends git ca-certificates
 
 WORKDIR /openscad
 
