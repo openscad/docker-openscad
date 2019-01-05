@@ -22,7 +22,7 @@ RUN \
 	make -j"$JOBS" && \
 	make install INSTALL_ROOT=AppDir && \
 	export PATH=/appimage/usr/bin:"$PATH" && \
-	linuxdeploy --appimage-extract-and-run --plugin qt --output appimage --appdir AppDir && \
+	linuxdeploy --plugin qt --output appimage --appdir AppDir && \
 	mkdir -p out && \
 	cp -iv OpenSCAD*.AppImage out/
 
