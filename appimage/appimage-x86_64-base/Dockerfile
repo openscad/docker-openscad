@@ -31,4 +31,9 @@ RUN \
 	rm -rf /openscad && \
 	wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage && \
 	wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage && \
-	chmod +x linuxdeploy*.AppImage
+	chmod +x linuxdeploy*.AppImage && \
+	./linuxdeploy-x86_64.AppImage --appimage-extract && \
+	./linuxdeploy-plugin-qt-x86_64.AppImage --appimage-extract && \
+	mv -iv $(find squashfs-root -mindepth 1 -maxdepth 1 -type d) . && \
+	rm -rf squashfs-root && \
+	find /appimage

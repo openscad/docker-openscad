@@ -6,6 +6,7 @@ FROM openscad/appimage-x86_64-base:latest
 
 ARG BRANCH=master
 ARG OPENSCAD_VERSION=
+ARG JOBS=2
 
 WORKDIR /openscad
 
@@ -16,9 +17,12 @@ RUN \
         git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 
 RUN \
-	qmake CONFIG+=experimental CONFIG+=snapshot CONFIG-=debug PREFIX=/usr VERSION="$(OPENSCAD_VERSION)" && \
+	export OPENSCAD_COMMIT=$(git log -1 --pretty=format:%h) && \
+	qmake CONFIG+=experimental CONFIG+=snapshot CONFIG-=debug PREFIX=/usr VERSION="$OPENSCAD_VERSION" OPENSCAD_COMMIT="$OPENSCAD_COMMIT" && \
+	make -j"$JOBS" && \
 	make install INSTALL_ROOT=AppDir && \
-	/appimage/linuxdeploy-x86_64.AppImage --plugin qt --output appimage --appdir AppDir && \
+	export PATH=/appimage/usr/bin:"$PATH" && \
+	linuxdeploy --appimage-extract-and-run --plugin qt --output appimage --appdir AppDir && \
 	mkdir -p out && \
 	cp -iv OpenSCAD*.AppImage out/
 
