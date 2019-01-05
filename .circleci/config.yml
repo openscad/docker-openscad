@@ -13,7 +13,19 @@ jobs:
               docker pull openscad/appimage-x86_64-base:latest || true
               docker build --cache-from openscad/appimage-x86_64-base:latest -t openscad/appimage-x86_64-base:latest appimage/appimage-x86_64-base
               docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
-              #docker push openscad/appimage-x86_64-base:latest
+              docker push openscad/appimage-x86_64-base:latest
+  appimage-x86_64-openscad:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build OpenSCAD AppImage (x86_64)
+          no_output_timeout: 18000
+          command: |
+              docker build --cache-from openscad/appimage-x86_64-openscad:latest -t openscad/appimage-x86_64-openscad:latest appimage/appimage-x86_64-openscad
+              docker run openscad/appimage-x86_64-openscad:latest | tar -x -v -C /tmp/out
   mxe-requirements:
     docker:
       - image: circleci/node:8
@@ -121,6 +133,9 @@ workflows:
   build:
     jobs:
       - appimage-x86_64-base
+      - appimage-x86_64-openscad:
+         requires:
+           - appimage-x86_64-base
       - mxe-requirements
       - mxe-x86_64-gcc:
          requires:
