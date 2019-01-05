@@ -10,7 +10,7 @@ RUN apt-get install -y --no-install-recommends binfmt-support qemu qemu-user-sta
 
 RUN update-binfmts --display
 
-RUN wget http://archive.raspbian.org/raspbian.public.key -O - | sudo apt-key add -q
+RUN wget http://archive.raspbian.org/raspbian.public.key -O - | apt-key add -q
 
 WORKDIR /raspi
 
