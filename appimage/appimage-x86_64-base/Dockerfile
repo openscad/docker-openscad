@@ -21,8 +21,8 @@ RUN \
         git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 
 RUN \
-	./scripts/uni-get-dependencies.sh && \
-	./scripts/check-dependencies.sh && \
+	bash ./scripts/uni-get-dependencies.sh && \
+	bash ./scripts/check-dependencies.sh && \
 	apt-get clean
 
 WORKDIR /appimage
