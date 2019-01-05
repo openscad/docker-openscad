@@ -2,7 +2,7 @@
 # Build: docker build -t appimage-x86_64-openscad .
 # Use: docker run --rm -it -v appimage-x86_64-openscad
 #
-FROM openscad/appimage-x86_64-openscad:latest
+FROM openscad/appimage-x86_64-base:latest
 
 ARG BRANCH=master
 ARG OPENSCAD_VERSION=
