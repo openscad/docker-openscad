@@ -10,7 +10,7 @@ RUN \
 	cat /etc/apt/sources.list && \
 	apt-get update && \
 	apt-get upgrade -y && \
-	apt-get install -y --no-install-recommends apt-utils ca-certificates git wget gpg
+	apt-get install -y --no-install-recommends apt-utils ca-certificates git wget gnupg
 
 WORKDIR /openscad
 
