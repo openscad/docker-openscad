@@ -35,5 +35,5 @@ RUN \
 	./linuxdeploy-x86_64.AppImage --appimage-extract && \
 	./linuxdeploy-plugin-qt-x86_64.AppImage --appimage-extract && \
 	mv -iv $(find squashfs-root -mindepth 1 -maxdepth 1 -type d) . && \
-	rm -rf squashfs-root && \
+	rm -rf *.AppImage squashfs-root && \
 	find /appimage
