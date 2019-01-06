@@ -10,15 +10,15 @@ RUN \
 	cat /etc/apt/sources.list && \
 	apt-get update && \
 	apt-get upgrade -y && \
-	apt-get install -y --no-install-recommends apt-utils ca-certificates git wget libfuse2
+	apt-get install -y --no-install-recommends apt-utils ca-certificates git wget gpg
 
 WORKDIR /openscad
 
 RUN \
-        git clone https://github.com/openscad/openscad . && \
-        git checkout "${BRANCH}" && \
-        git rev-parse --abbrev-ref HEAD && \
-        git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
+	git clone https://github.com/openscad/openscad . && \
+	git checkout "${BRANCH}" && \
+	git rev-parse --abbrev-ref HEAD && \
+	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 
 RUN \
 	bash ./scripts/uni-get-dependencies.sh && \
