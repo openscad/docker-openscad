@@ -17,7 +17,9 @@ RUN \
         git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 
 RUN \
+	. /opt/qt511/bin/qt511-env.sh && \
 	export OPENSCAD_COMMIT=$(git log -1 --pretty=format:%h) && \
+	qmake -v && \
 	qmake CONFIG+=experimental CONFIG+=snapshot CONFIG-=debug PREFIX=/usr VERSION="$OPENSCAD_VERSION" OPENSCAD_COMMIT="$OPENSCAD_COMMIT" && \
 	make -j"$JOBS" && \
 	make install INSTALL_ROOT=AppDir && \
