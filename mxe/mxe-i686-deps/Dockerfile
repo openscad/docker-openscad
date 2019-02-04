@@ -15,5 +15,5 @@ RUN \
 		qtbase qtmultimedia qtgamepad qscintilla2 \
 		opencsg cgal mpfr eigen \
 		libxml2 freetype fontconfig harfbuzz \
-		glib libzip lib3mf nsis && \
+		glib libzip lib3mf nsis double-conversion && \
 	make MXE_PLUGIN_DIRS=plugins/gcc7 clean-junk
