@@ -26,7 +26,7 @@ RUN \
 	export MXEDIR=/mxe ; \
 	export NUMCPU="$JOBS" ; \
 	export LIB3MF_INCLUDEPATH=/mxe/usr/x86_64-w64-mingw32.static.posix/include/lib3mf ; \
-	./scripts/release-common.sh -snapshot -mingw64 -v "$OPENSCAD_VERSION"; \
+	./scripts/release-common.sh snapshot mingw64 -v "$OPENSCAD_VERSION"; \
 	mkdir -p out; \
 	for f in mingw*/*.zip mingw*/*.exe; do \
 		N=$(basename "$f" | sed -e "s/\\(-x86-[36][24]\\)/\\1${SUFFIX}/;"); \
