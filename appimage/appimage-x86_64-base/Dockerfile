@@ -4,6 +4,8 @@
 #
 FROM ubuntu:16.04
 
+ARG GITHUB_USER=openscad
+ARG GITHUB_REPO=openscad
 ARG BRANCH=master
 
 RUN \
@@ -22,8 +24,12 @@ RUN \
 
 WORKDIR /openscad
 
+# Invalidate docker cache if the branch changes
+ADD https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/refs/heads/${BRANCH} version.json
+
 RUN \
-	git clone https://github.com/openscad/openscad . && \
+	cat version.json && rm -f version.json && \
+	git clone "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
 	git checkout "${BRANCH}" && \
 	git rev-parse --abbrev-ref HEAD && \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
