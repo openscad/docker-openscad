@@ -26,6 +26,7 @@ RUN \
 	export MXEDIR=/mxe ; \
 	export NUMCPU="$JOBS" ; \
 	export LIB3MF_INCLUDEPATH=/mxe/usr/x86_64-w64-mingw32.static.posix/include/lib3mf ; \
+	export LIB3MF_LIBPATH=/mxe/usr/i686-w64-mingw32.static.posix/lib ; \
 	./scripts/release-common.sh snapshot mingw64 -v "$OPENSCAD_VERSION"; \
 	mkdir -p out; \
 	for f in mingw*/*.zip mingw*/*.exe; do \
