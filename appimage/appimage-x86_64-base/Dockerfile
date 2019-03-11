@@ -14,8 +14,8 @@ RUN \
 	apt-get install -y --no-install-recommends apt-utils apt-transport-https ca-certificates git wget gnupg && \
 	sed -ie 's/^#\s*\(.*universe\)$/\1/' /etc/apt/sources.list && \
 	echo "deb http://ppa.launchpad.net/beineri/opt-qt-5.11.2-xenial/ubuntu xenial main" >> /etc/apt/sources.list && \
-	echo "deb https://download.opensuse.org/repositories/home:/t-paul:/lib3mf/xUbuntu_16.04/ ./" >> /etc/apt/sources.list && \
-	echo "deb https://download.opensuse.org/repositories/home:/t-paul:/opencsg-1.4.2/xUbuntu_16.04/ ./" >> /etc/apt/sources.list && \
+	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/lib3mf/xUbuntu_16.04/ ./" >> /etc/apt/sources.list && \
+	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/opencsg-1.4.2/xUbuntu_16.04/ ./" >> /etc/apt/sources.list && \
 	grep -v "^#" /etc/apt/sources.list && \
 	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys C65D51784EDC19A871DBDBB710C56D0DE9977759 && \
 	wget -qO - https://files.openscad.org/OBS-Repository-Key.pub | apt-key add - && \
@@ -37,6 +37,7 @@ RUN \
 RUN \
 	bash ./scripts/uni-get-dependencies.sh && \
 	bash ./scripts/check-dependencies.sh && \
+	(apt-get install -y lib3mf-dev || /bin/true) && \
 	apt-get clean
 
 WORKDIR /qt5-update
