@@ -9,6 +9,7 @@ ARG GITHUB_USER=openscad
 ARG GITHUB_REPO=openscad
 ARG BRANCH=master
 ARG OPENSCAD_VERSION=
+ARG RELEASE_TYPE=snapshot
 ARG JOBS=2
 
 WORKDIR /openscad
@@ -27,7 +28,7 @@ RUN \
 	export NUMCPU="$JOBS" ; \
 	export LIB3MF_INCLUDEPATH=/mxe/usr/i686-w64-mingw32.static.posix/include/lib3mf ; \
 	export LIB3MF_LIBPATH=/mxe/usr/i686-w64-mingw32.static.posix/lib ; \
-	./scripts/release-common.sh snapshot mingw32 -v "$OPENSCAD_VERSION"; \
+	./scripts/release-common.sh ${RELEASE_TYPE} mingw32 -v "$OPENSCAD_VERSION"; \
 	mkdir -p out; \
 	for f in mingw*/*.zip mingw*/*.exe; do \
 		N=$(basename "$f" | sed -e "s/\\(-x86-[36][24]\\)/\\1${SUFFIX}/;"); \

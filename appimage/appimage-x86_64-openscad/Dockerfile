@@ -8,6 +8,8 @@ ARG GITHUB_USER=openscad
 ARG GITHUB_REPO=openscad
 ARG BRANCH=master
 ARG OPENSCAD_VERSION=
+ARG SNAPSHOT=+
+ARG DEBUG=-
 ARG JOBS=2
 
 WORKDIR /openscad
@@ -26,11 +28,11 @@ RUN \
 	. /opt/qt511/bin/qt511-env.sh && \
 	export OPENSCAD_COMMIT=$(git log -1 --pretty=format:%h) && \
 	qmake -v && \
-	qmake CONFIG+=experimental CONFIG+=snapshot CONFIG-=debug PREFIX=/usr VERSION="$OPENSCAD_VERSION" OPENSCAD_COMMIT="$OPENSCAD_COMMIT" && \
+	qmake CONFIG${SNAPSHOT}=experimental CONFIG${SNAPSHOT}=snapshot CONFIG${DEBUG}=debug PREFIX=/usr VERSION="$OPENSCAD_VERSION" OPENSCAD_COMMIT="$OPENSCAD_COMMIT" && \
 	make -j"$JOBS" && \
 	make install INSTALL_ROOT=AppDir && \
 	export PATH=/appimage/usr/bin:"$PATH" && \
-	linuxdeploy --plugin qt --output appimage --appdir AppDir && \
+	VERSION="$OPENSCAD_VERSION" linuxdeploy --plugin qt --output appimage --appdir AppDir && \
 	mkdir -p out && \
 	cp -iv OpenSCAD*.AppImage out/
 
