@@ -7,6 +7,7 @@ FROM openscad/appimage-x86_64-base:latest
 ARG GITHUB_USER=openscad
 ARG GITHUB_REPO=openscad
 ARG BRANCH=master
+ARG REFS=heads
 ARG OPENSCAD_VERSION=
 ARG SNAPSHOT=+
 ARG DEBUG=-
@@ -15,7 +16,7 @@ ARG JOBS=2
 WORKDIR /openscad
 
 # Invalidate docker cache if the branch changes
-ADD https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/refs/heads/${BRANCH} version.json
+ADD https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/refs/${REFS}/${BRANCH} version.json
 
 RUN \
         cat version.json && rm -f version.json && \
