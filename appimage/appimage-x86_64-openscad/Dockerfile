@@ -12,6 +12,7 @@ ARG OPENSCAD_VERSION=
 ARG SNAPSHOT=+
 ARG DEBUG=-
 ARG JOBS=2
+ARG COMMIT=true
 
 WORKDIR /openscad
 
@@ -26,8 +27,8 @@ RUN \
         git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 
 RUN \
-	. /opt/qt511/bin/qt511-env.sh && \
-	export OPENSCAD_COMMIT=$(git log -1 --pretty=format:%h) && \
+	. /opt/qt512/bin/qt512-env.sh && \
+	export OPENSCAD_COMMIT=$(/bin/"$COMMIT" && git log -1 --pretty=format:%h || echo "") && \
 	qmake -v && \
 	qmake CONFIG${SNAPSHOT}=experimental CONFIG${SNAPSHOT}=snapshot CONFIG${DEBUG}=debug PREFIX=/usr VERSION="$OPENSCAD_VERSION" OPENSCAD_COMMIT="$OPENSCAD_COMMIT" && \
 	make -j"$JOBS" && \

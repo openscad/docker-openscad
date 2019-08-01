@@ -13,7 +13,7 @@ RUN \
 	apt-get upgrade -y && \
 	apt-get install -y --no-install-recommends apt-utils apt-transport-https ca-certificates git wget gnupg && \
 	sed -ie 's/^#\s*\(.*universe\)$/\1/' /etc/apt/sources.list && \
-	echo "deb http://ppa.launchpad.net/beineri/opt-qt-5.11.2-xenial/ubuntu xenial main" >> /etc/apt/sources.list && \
+	echo "deb http://ppa.launchpad.net/beineri/opt-qt-5.12.3-xenial/ubuntu xenial main" >> /etc/apt/sources.list && \
 	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/lib3mf/xUbuntu_16.04/ ./" >> /etc/apt/sources.list && \
 	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/opencsg-1.4.2/xUbuntu_16.04/ ./" >> /etc/apt/sources.list && \
 	grep -v "^#" /etc/apt/sources.list && \
@@ -43,9 +43,9 @@ RUN \
 WORKDIR /qt5-update
 
 RUN \
-	apt-get install -y --no-install-recommends build-essential fakeroot devscripts qt511-meta-minimal qt511gamepad qt511multimedia && \
-	cd /opt/qt511/include/ && ln -s /usr/include/x86_64-linux-gnu/qt5/Qsci && \
-	cd /opt/qt511/mkspecs/features && ln -s /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qscintilla2.prf
+	apt-get install -y --no-install-recommends build-essential fakeroot devscripts qt512-meta-minimal qt512gamepad qt512multimedia && \
+	cd /opt/qt512/include/ && ln -s /usr/include/x86_64-linux-gnu/qt5/Qsci && \
+	cd /opt/qt512/mkspecs/features && ln -s /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qscintilla2.prf
 
 WORKDIR /appimage
 
