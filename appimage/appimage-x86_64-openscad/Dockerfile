@@ -1,6 +1,7 @@
 #
 # Build: docker build -t appimage-x86_64-openscad .
 # Use: docker run --rm -it -v appimage-x86_64-openscad
+# run, see runXme at the top of this repo. This will enable the program to run under X.
 #
 FROM openscad/appimage-x86_64-base:latest
 
