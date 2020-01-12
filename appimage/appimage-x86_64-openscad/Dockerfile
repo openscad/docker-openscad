@@ -38,4 +38,4 @@ RUN \
 	mkdir -p out && \
 	cp -iv OpenSCAD*.AppImage out/
 
-ENTRYPOINT tar --create -C /openscad/out .
+ENTRYPOINT /openscad/AppDir/AppRun
