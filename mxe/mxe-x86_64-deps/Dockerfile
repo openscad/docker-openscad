@@ -15,7 +15,7 @@ RUN \
 		MXE_TARGETS=x86_64-w64-mingw32.static.posix \
 		qtbase qtmultimedia qtgamepad qscintilla2 \
 		opencsg cgal mpfr eigen \
-		libxml2 freetype fontconfig harfbuzz \
+		libxml2 freetype fontconfig harfbuzz cairo \
 		glib libzip lib3mf double-conversion && \
 	make "JOBS=${JOBS}" "-j${JOBS}" \
 		MXE_PLUGIN_DIRS=plugins/gcc7 \
