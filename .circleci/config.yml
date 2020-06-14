@@ -30,6 +30,20 @@ jobs:
       - store_artifacts:
           path: /tmp/out
           destination: 64-bit
+  appimage-arm64v8-base:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build AppImage (arm64v8) base image
+          no_output_timeout: 18000
+          command: |
+              docker pull openscad/appimage-arm64v8-base:latest || true
+              docker build --cache-from openscad/appimage-arm64v8-base:latest -t openscad/appimage-arm64v8-base:latest appimage/appimage-arm64v8-base
+              docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+              docker push openscad/appimage-arm64v8-base:latest
   mxe-requirements:
     docker:
       - image: circleci/node:8
@@ -140,6 +154,7 @@ workflows:
       - appimage-x86_64-openscad:
          requires:
            - appimage-x86_64-base
+      - appimage-arm64v8-base
       - mxe-requirements
       - mxe-x86_64-gcc:
          requires:
