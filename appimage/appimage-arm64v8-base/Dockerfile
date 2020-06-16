@@ -14,7 +14,11 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN \
 	apt-get update && \
 	apt-get upgrade -y && \
-	apt-get install -y --no-install-recommends apt-utils apt-transport-https ca-certificates git wget gnupg ccache libjpeg-dev cimg-dev && \
+	apt-get install -y --no-install-recommends \
+		apt-utils apt-transport-https ca-certificates git wget \
+		patchelf gnupg ccache appstream xxd desktop-file-utils \
+		libjpeg-dev cimg-dev libcairo-dev libfuse-dev libssl-dev \
+		&& \
 	apt-get clean
 
 WORKDIR /openscad
@@ -36,15 +40,24 @@ RUN \
 WORKDIR /appimage
 
 RUN \
-	git clone https://github.com/linuxdeploy/linuxdeploy.git && \
-	git clone https://github.com/linuxdeploy/linuxdeploy-plugin-qt.git && \
-	cd linuxdeploy/ && git submodule update --init --recursive && \
-	cd ../linuxdeploy-plugin-qt/ && git submodule update --init --recursive && \
-	cd /appimage/linuxdeploy/ && \
-	mkdir build && cd build/ && \
-	cmake -DCMAKE_INSTALL_PREFIX=/appimage/usr .. && make -j"$JOBS" && make install && \
-	cd ../../linuxdeploy-plugin-qt/ && mkdir build && cd build/ && \
-	cmake -DCMAKE_INSTALL_PREFIX=/appimage/usr .. && make -j"$JOBS" && make install && \
-        cd ../.. && cp linuxdeploy/build/bin/linuxdeploy usr/bin/ && \
-	rm -rf linuxdeploy linuxdeploy-plugin-qt && \
+	git clone --single-branch --recursive https://github.com/linuxdeploy/linuxdeploy.git && \
+	git clone --single-branch --recursive https://github.com/linuxdeploy/linuxdeploy-plugin-qt.git && \
+	git clone --single-branch --recursive https://github.com/linuxdeploy/linuxdeploy-plugin-appimage.git && \
+	git clone --single-branch --recursive https://github.com/AppImage/AppImageKit.git
+
+RUN \
+	cd /appimage/linuxdeploy/ && mkdir build && cd build/ && cmake -DCMAKE_INSTALL_PREFIX=/appimage/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make -j"$JOBS" && make install && \
+        cd /appimage && mkdir -p usr/bin/ && cp linuxdeploy/build/bin/linuxdeploy usr/bin/
+
+RUN \
+	cd /appimage/linuxdeploy-plugin-qt/ && mkdir build && cd build/ && cmake -DCMAKE_INSTALL_PREFIX=/appimage/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make -j"$JOBS" && make install
+
+RUN \
+	cd /appimage/linuxdeploy-plugin-appimage && mkdir build && cd build/ && cmake -DCMAKE_INSTALL_PREFIX=/appimage/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo .. && make -j"$JOBS" && make install
+
+RUN \
+	cd /appimage/AppImageKit && mkdir build && cd build/ && cmake -DCMAKE_INSTALL_PREFIX=/appimage/usr -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_TESTING=OFF -DAPPIMAGEKIT_PACKAGE_DEBS=OFF .. && make -j"$JOBS" && make install
+
+RUN \
+	rm -rf linuxdeploy linuxdeploy-plugin-qt linuxdeploy-plugin-appimage AppImageKit && \
 	find /appimage
