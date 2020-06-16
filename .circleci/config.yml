@@ -154,7 +154,6 @@ workflows:
       - appimage-x86_64-openscad:
          requires:
            - appimage-x86_64-base
-      - appimage-arm64v8-base
       - mxe-requirements
       - mxe-x86_64-gcc:
          requires:
