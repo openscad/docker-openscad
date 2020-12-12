@@ -1,0 +1,9 @@
+#!/bin/bash
+# Copyright (C) 2019 rickyrockrat, gpib@rickyrockrat.net
+# GPL2
+
+uid=$(id -u)
+gid=$(id -g)
+OPTS="-u $uid:$gid -v $HOME:$HOME -w $HOME -e HOME -e DISPLAY -e DISPLAY=unix$DISPLAY"
+VOLS="--volume=/etc/group:/etc/group:ro --volume=/etc/passwd:/etc/passwd:ro --volume=/etc/shadow:/etc/shadow:ro --volume=/tmp/.X11-unix:/tmp/.X11-unix:rw"
+docker run --rm $OPTS $VOLS appimage-x86_64-openscad 
