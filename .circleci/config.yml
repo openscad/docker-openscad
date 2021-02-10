@@ -11,7 +11,8 @@ jobs:
           no_output_timeout: 18000
           command: |
               docker pull openscad/appimage-x86_64-base:latest || true
-              docker build --cache-from openscad/appimage-x86_64-base:latest -t openscad/appimage-x86_64-base:latest appimage/appimage-x86_64-base
+              #docker build --cache-from openscad/appimage-x86_64-base:latest -t openscad/appimage-x86_64-base:latest appimage/appimage-x86_64-base
+              docker build -t openscad/appimage-x86_64-base:latest appimage/appimage-x86_64-base
               docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
               docker push openscad/appimage-x86_64-base:latest
   appimage-x86_64-openscad:
