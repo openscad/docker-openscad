@@ -1,8 +1,8 @@
 #
-# Build: docker build -t mxe-requirements .
-# Use: docker run --rm -it -v mxe-requirements
+# Build: docker build -t openscad/mxe-requirements .
+# Use: docker run --rm -it -v openscad/mxe-requirements
 #
-FROM buildpack-deps:stretch
+FROM buildpack-deps:buster
 
 RUN apt-get update
 
