@@ -8,15 +8,20 @@ ARG GITHUB_USER=openscad
 ARG GITHUB_REPO=openscad
 ARG BRANCH=master
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN \
 	apt-get update && \
 	apt-get upgrade -y && \
-	apt-get install -y --no-install-recommends apt-utils apt-transport-https ca-certificates git wget gnupg && \
+	apt-get install -y --no-install-recommends apt-utils apt-transport-https ca-certificates git wget gnupg
+
+RUN \
+	apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys C65D51784EDC19A871DBDBB710C56D0DE9977759 && \
 	sed -ie 's/^#\s*\(.*universe\)$/\1/' /etc/apt/sources.list && \
 	echo "deb http://ppa.launchpad.net/beineri/opt-qt-5.15.2-bionic/ubuntu bionic main" >> /etc/apt/sources.list && \
 	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/lib3mf/xUbuntu_18.04/ ./" >> /etc/apt/sources.list && \
+	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/cgal/xUbuntu_18.04/ ./" >> /etc/apt/sources.list && \
 	grep -v "^#" /etc/apt/sources.list && \
-	apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys C65D51784EDC19A871DBDBB710C56D0DE9977759 && \
 	wget -qO - https://files.openscad.org/OBS-Repository-Key.pub | apt-key add - && \
 	apt-get update && \
 	apt-get upgrade -y
