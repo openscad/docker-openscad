@@ -57,9 +57,11 @@ RUN \
 	rm -rf /openscad && \
 	wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage && \
 	wget https://github.com/linuxdeploy/linuxdeploy-plugin-qt/releases/download/continuous/linuxdeploy-plugin-qt-x86_64.AppImage && \
-	chmod +x linuxdeploy*.AppImage && \
+	wget https://raw.githubusercontent.com/linuxdeploy/linuxdeploy-plugin-gtk/master/linuxdeploy-plugin-gtk.sh && \
+	chmod +x linuxdeploy*.AppImage *.sh && \
 	./linuxdeploy-x86_64.AppImage --appimage-extract && \
 	./linuxdeploy-plugin-qt-x86_64.AppImage --appimage-extract && \
 	mv -iv $(find squashfs-root -mindepth 1 -maxdepth 1 -type d) . && \
+	mv -iv linuxdeploy-plugin-gtk.sh usr/bin/ && \
 	rm -rf *.AppImage squashfs-root && \
 	find /appimage
