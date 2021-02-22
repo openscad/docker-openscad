@@ -2,10 +2,11 @@ version: 2
 jobs:
   appimage-x86_64-base:
     docker:
-      - image: circleci/node:8
+      - image: cimg/base:stable
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.2
       - run:
           name: Build AppImage (x86_64) base image
           no_output_timeout: 18000
@@ -17,10 +18,11 @@ jobs:
               docker push openscad/appimage-x86_64-base:latest
   appimage-x86_64-openscad:
     docker:
-      - image: circleci/node:8
+      - image: cimg/base:stable
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.2
       - run:
           name: Build OpenSCAD AppImage (x86_64)
           no_output_timeout: 18000
@@ -33,10 +35,11 @@ jobs:
           destination: 64-bit
   appimage-arm64v8-base:
     docker:
-      - image: circleci/node:8
+      - image: cimg/base:stable
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.2
       - run:
           name: Build AppImage (arm64v8) base image
           no_output_timeout: 18000
@@ -47,10 +50,11 @@ jobs:
               docker push openscad/appimage-arm64v8-base:latest
   mxe-requirements:
     docker:
-      - image: circleci/node:8
+      - image: cimg/base:stable
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.2
       - run:
           name: Build MXE base image
           no_output_timeout: 18000
@@ -61,10 +65,11 @@ jobs:
               docker push openscad/mxe-requirements:latest
   mxe-x86_64-gcc:
     docker:
-      - image: circleci/node:8
+      - image: cimg/base:stable
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.2
       - run:
           name: Build MXE gcc (64bit)
           no_output_timeout: 18000
@@ -75,10 +80,11 @@ jobs:
               docker push openscad/mxe-x86_64-gcc:latest
   mxe-x86_64-deps:
     docker:
-      - image: circleci/node:8
+      - image: cimg/base:stable
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.2
       - run:
           name: Build MXE dependencies (64bit)
           no_output_timeout: 18000
@@ -89,10 +95,11 @@ jobs:
               docker push openscad/mxe-x86_64-deps:latest
   mxe-x86_64-openscad:
     docker:
-      - image: circleci/node:8
+      - image: cimg/base:stable
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.2
       - run:
           name: Build MXE OpenSCAD (64bit)
           no_output_timeout: 18000
@@ -105,10 +112,11 @@ jobs:
           destination: 64-bit
   mxe-i686-gcc:
     docker:
-      - image: circleci/node:8
+      - image: cimg/base:stable
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.2
       - run:
           name: Build MXE gcc (32bit)
           no_output_timeout: 18000
@@ -119,10 +127,11 @@ jobs:
               docker push openscad/mxe-i686-gcc:latest
   mxe-i686-deps:
     docker:
-      - image: circleci/node:8
+      - image: cimg/base:stable
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.2
       - run:
           name: Build MXE dependencies (32bit)
           no_output_timeout: 18000
@@ -133,10 +142,11 @@ jobs:
               docker push openscad/mxe-i686-deps:latest
   mxe-i686-openscad:
     docker:
-      - image: circleci/node:8
+      - image: cimg/base:stable
     steps:
       - checkout
-      - setup_remote_docker
+      - setup_remote_docker:
+          version: 20.10.2
       - run:
           name: Build MXE OpenSCAD (32bit)
           no_output_timeout: 18000
