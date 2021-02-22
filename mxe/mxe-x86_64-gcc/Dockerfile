@@ -24,7 +24,7 @@ RUN \
 # use 32bit makensis from MXE. 64bit version not compatible
 RUN \
 	make "JOBS=${JOBS}" "-j${JOBS}" \
-                MXE_PLUGIN_DIRS=plugins/gcc10
+                MXE_PLUGIN_DIRS=plugins/gcc10 \
                 MXE_TARGETS=x86_64-w64-mingw32.static.posix \
                 cc && \
 	make "JOBS=${JOBS}" "-j${JOBS}" \
