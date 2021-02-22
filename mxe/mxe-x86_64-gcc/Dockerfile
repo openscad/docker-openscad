@@ -20,5 +20,15 @@ RUN \
 	git checkout "${BRANCH}" && \
 	git rev-parse --abbrev-ref HEAD && \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
+
+# use 32bit makensis from MXE. 64bit version not compatible
 RUN \
-	make "JOBS=${JOBS}" "-j${JOBS}" MXE_PLUGIN_DIRS=plugins/gcc10 MXE_TARGETS=x86_64-w64-mingw32.static.posix cc
+	make "JOBS=${JOBS}" "-j${JOBS}" \
+                MXE_PLUGIN_DIRS=plugins/gcc10
+                MXE_TARGETS=x86_64-w64-mingw32.static.posix \
+                cc && \
+	make "JOBS=${JOBS}" "-j${JOBS}" \
+		MXE_PLUGIN_DIRS=plugins/gcc10 \
+		MXE_TARGETS=i686-w64-mingw32.static.posix \
+		nsis && \
+	make MXE_PLUGIN_DIRS=plugins/gcc10 clean-junk

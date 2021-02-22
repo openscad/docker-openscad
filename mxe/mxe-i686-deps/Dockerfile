@@ -12,10 +12,17 @@ RUN \
 	make "JOBS=${JOBS}" "-j${JOBS}" \
 		MXE_PLUGIN_DIRS=plugins/gcc10 \
 		MXE_TARGETS=i686-w64-mingw32.static.posix \
-		qtbase qtmultimedia qtgamepad qscintilla2 \
-		opencsg cgal mpfr eigen \
-		libxml2 freetype fontconfig harfbuzz cairo \
-		glib libzip lib3mf double-conversion \
+		mpfr \
+                eigen \
+                libxml2 \
+                freetype \
+                fontconfig \
+                harfbuzz \
+                cairo \
+                glib \
+                libzip \
+                lib3mf \
+                double-conversion \
 		nsis \
 		&& \
 	make MXE_PLUGIN_DIRS=plugins/gcc10 clean-junk

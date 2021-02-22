@@ -2,7 +2,7 @@
 # Build: docker build -t openscad/mxe-x86_64-openscad .
 # Use: docker run --rm -it openscad/mxe-x86_64-openscad
 #
-FROM openscad/mxe-x86_64-deps:latest
+FROM openscad/mxe-x86_64-gui:latest
 
 ARG SUFFIX=
 ARG GITHUB_USER=openscad
