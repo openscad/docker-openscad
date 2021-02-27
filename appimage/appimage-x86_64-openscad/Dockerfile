@@ -1,6 +1,6 @@
 #
-# Build: docker build -t appimage-x86_64-openscad .
-# Use: docker run --rm -it -v appimage-x86_64-openscad
+# Build: docker build -t openscad/appimage-x86_64-openscad .
+# Use: docker run --rm -it -v openscad/appimage-x86_64-openscad
 #
 FROM openscad/appimage-x86_64-base:latest
 
@@ -41,10 +41,11 @@ RUN \
 		-DOPENSCAD_COMMIT="$OPENSCAD_COMMIT" \
 		&& \
 	make -j"$JOBS" && \
-	make install DESTDIR=../AppDir && \
-	cd .. && \
+	make install DESTDIR=../AppDir
+
+RUN \
 	export PATH=/appimage/usr/bin:"$PATH" && \
-	VERSION="$OPENSCAD_VERSION" linuxdeploy --plugin qt --output appimage --appdir AppDir && \
+	VERSION="${OPENSCAD_VERSION:-$(date +%Y.%m.%d).ai}" linuxdeploy --plugin qt --output appimage --appdir AppDir && \
 	mkdir -p out && \
 	cp -iv OpenSCAD*.AppImage out/
 
