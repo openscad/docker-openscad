@@ -1,6 +1,6 @@
 #
-# Build: docker build -t appimage-arm64v8-base .
-# Use: docker run --rm -it -v appimage-arm64v8-base
+# Build: docker build -t openscad/appimage-arm64v8-base .
+# Use: docker run --rm -it -v openscad/appimage-arm64v8-base
 #
 FROM arm64v8/debian:buster-slim
 
@@ -19,6 +19,15 @@ RUN \
 		patchelf gnupg ccache appstream xxd desktop-file-utils \
 		libjpeg-dev cimg-dev libcairo-dev libfuse-dev libssl-dev \
 		&& \
+	apt-get clean
+
+RUN \
+        echo "deb  https://download.opensuse.org/repositories/home:/t-paul:/cgal/Debian_10/ ./" >> /etc/apt/sources.list && \
+        grep -v "^#" /etc/apt/sources.list && \
+        wget -qO - https://files.openscad.org/OBS-Repository-Key.pub | apt-key add - && \
+	apt-get update && \
+	apt-get upgrade -y && \
+	apt-get install -y --no-install-recommends libcgal-dev && \
 	apt-get clean
 
 WORKDIR /openscad
