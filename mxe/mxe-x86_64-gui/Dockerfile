@@ -17,6 +17,7 @@ RUN \
 		qtbase \
                 qtmultimedia \
                 qtgamepad \
+                qtsvg \
                 qscintilla2 \
 		&& \
 	make MXE_PLUGIN_DIRS=plugins/gcc10 clean-junk

@@ -47,7 +47,7 @@ RUN \
 WORKDIR /qt5-update
 
 RUN \
-	apt-get install -y --no-install-recommends build-essential fakeroot devscripts qt515base qt515gamepad qt515multimedia && \
+	apt-get install -y --no-install-recommends build-essential fakeroot devscripts qt515base qt515gamepad qt515multimedia qt515svg && \
 	cd /opt/qt5*/include/ && ln -s /usr/include/x86_64-linux-gnu/qt5/Qsci && \
 	cd /opt/qt5*/mkspecs/features && ln -s /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/qscintilla2.prf
 
