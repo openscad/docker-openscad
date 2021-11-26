@@ -66,6 +66,7 @@ jobs:
   mxe-x86_64-gcc:
     docker:
       - image: cimg/base:stable
+    resource_class: large
     steps:
       - checkout
       - setup_remote_docker:
@@ -81,6 +82,7 @@ jobs:
   mxe-x86_64-deps:
     docker:
       - image: cimg/base:stable
+    resource_class: large
     steps:
       - checkout
       - setup_remote_docker:
@@ -96,6 +98,7 @@ jobs:
   mxe-x86_64-gui:
     docker:
       - image: cimg/base:stable
+    resource_class: large
     steps:
       - checkout
       - setup_remote_docker:
@@ -111,6 +114,7 @@ jobs:
   mxe-x86_64-openscad:
     docker:
       - image: cimg/base:stable
+    resource_class: large
     steps:
       - checkout
       - setup_remote_docker:
@@ -128,6 +132,7 @@ jobs:
   mxe-i686-gcc:
     docker:
       - image: cimg/base:stable
+    resource_class: large
     steps:
       - checkout
       - setup_remote_docker:
@@ -143,6 +148,7 @@ jobs:
   mxe-i686-deps:
     docker:
       - image: cimg/base:stable
+    resource_class: large
     steps:
       - checkout
       - setup_remote_docker:
@@ -158,6 +164,7 @@ jobs:
   mxe-i686-gui:
     docker:
       - image: cimg/base:stable
+    resource_class: large
     steps:
       - checkout
       - setup_remote_docker:
@@ -173,6 +180,7 @@ jobs:
   mxe-i686-openscad:
     docker:
       - image: cimg/base:stable
+    resource_class: large
     steps:
       - checkout
       - setup_remote_docker:
