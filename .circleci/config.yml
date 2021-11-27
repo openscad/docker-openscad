@@ -88,11 +88,27 @@ jobs:
       - setup_remote_docker:
           version: 20.10.2
       - run:
-          name: Build MXE dependencies (64bit)
+          name: Build MXE dependencies 1 (64bit)
           no_output_timeout: 18000
           command: |
               docker pull openscad/mxe-x86_64-deps:latest || true
               docker build --cache-from openscad/mxe-requirements:latest --cache-from openscad/mxe-x86_64-gcc:latest --cache-from openscad/mxe-x86_64-deps:latest -t openscad/mxe-x86_64-deps:latest --build-arg JOBS=4 mxe/mxe-x86_64-deps
+              docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+              docker push openscad/mxe-x86_64-deps:latest
+  mxe-x86_64-deps2:
+    docker:
+      - image: cimg/base:stable
+    resource_class: large
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.2
+      - run:
+          name: Build MXE dependencies 2 (64bit)
+          no_output_timeout: 18000
+          command: |
+              docker pull openscad/mxe-x86_64-deps2:latest || true
+              docker build --cache-from openscad/mxe-requirements:latest --cache-from openscad/mxe-x86_64-gcc:latest --cache-from openscad/mxe-x86_64-deps:latest --cache-from openscad/mxe-x86_64-deps2:latest -t openscad/mxe-x86_64-deps2:latest --build-arg JOBS=4 mxe/mxe-x86_64-deps2
               docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
               docker push openscad/mxe-x86_64-deps:latest
   mxe-x86_64-gui:
@@ -154,11 +170,27 @@ jobs:
       - setup_remote_docker:
           version: 20.10.2
       - run:
-          name: Build MXE dependencies (32bit)
+          name: Build MXE dependencies 1 (32bit)
           no_output_timeout: 18000
           command: |
               docker pull openscad/mxe-i686-deps:latest || true
               docker build --cache-from openscad/mxe-requirements:latest --cache-from openscad/mxe-i686-gcc:latest --cache-from openscad/mxe-i686-deps:latest -t openscad/mxe-i686-deps:latest --build-arg JOBS=4 mxe/mxe-i686-deps
+              docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
+              docker push openscad/mxe-i686-deps:latest
+  mxe-i686-deps2:
+    docker:
+      - image: cimg/base:stable
+    resource_class: large
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 20.10.2
+      - run:
+          name: Build MXE dependencies 2 (32bit)
+          no_output_timeout: 18000
+          command: |
+              docker pull openscad/mxe-i686-deps2:latest || true
+              docker build --cache-from openscad/mxe-requirements:latest --cache-from openscad/mxe-i686-gcc:latest --cache-from openscad/mxe-i686-deps:latest --cache-from openscad/mxe-i686-deps2:latest -t openscad/mxe-i686-deps2:latest --build-arg JOBS=4 mxe/mxe-i686-deps2
               docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
               docker push openscad/mxe-i686-deps:latest
   mxe-i686-gui:
@@ -211,9 +243,12 @@ workflows:
       - mxe-x86_64-deps:
          requires:
            - mxe-x86_64-gcc
-      - mxe-x86_64-gui:
+      - mxe-x86_64-deps2:
          requires:
            - mxe-x86_64-deps
+      - mxe-x86_64-gui:
+         requires:
+           - mxe-x86_64-deps2
       - mxe-x86_64-openscad:
          requires:
            - mxe-x86_64-gui
@@ -223,9 +258,12 @@ workflows:
       - mxe-i686-deps:
          requires:
            - mxe-i686-gcc
-      - mxe-i686-gui:
+      - mxe-i686-deps2:
          requires:
            - mxe-i686-deps
+      - mxe-i686-gui:
+         requires:
+           - mxe-i686-deps2
       - mxe-i686-openscad:
          requires:
            - mxe-i686-gui
