@@ -31,7 +31,7 @@ RUN \
 	export LIB3MF_LIBPATH=/mxe/usr/i686-w64-mingw32.static.posix/lib ; \
 	./scripts/release-common.sh -v "${OPENSCAD_VERSION}" mingw64 ${RELEASE_TYPE} ; \
 	mkdir -p out; \
-	for f in mingw*/*.zip mingw*/*.exe; do \
+	for f in mingw*/*.zip mingw*/*Installer.exe; do \
 		N=$(basename "$f" | sed -e "s/\\(-x86-[36][24]\\)/\\1${SUFFIX}/;"); \
 		cp -iv "$f" out/"$N"; \
 	done
