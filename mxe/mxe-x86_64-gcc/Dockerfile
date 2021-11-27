@@ -11,16 +11,6 @@ ARG GITHUB_REPO=mxe
 
 WORKDIR /mxe
 
-# Invalidate docker cache if the branch changes
-ADD https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/refs/heads/${BRANCH} version.json
-
-RUN \
-	cat version.json && rm -f version.json && \
-	git clone "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
-	git checkout "${BRANCH}" && \
-	git rev-parse --abbrev-ref HEAD && \
-	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
-
 # use 32bit makensis from MXE. 64bit version not compatible
 # for that we use the i686-gcc base image which provides the
 # already built gcc
