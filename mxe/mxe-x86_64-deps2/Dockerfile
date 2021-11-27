@@ -10,12 +10,12 @@ WORKDIR /mxe
 
 RUN \
 	make "JOBS=${JOBS}" "-j${JOBS}" \
-		MXE_PLUGIN_DIRS=plugins/gcc10 \
+		MXE_PLUGIN_DIRS=plugins/gcc11 \
 		MXE_TARGETS=x86_64-w64-mingw32.static.posix \
                 cairo \
 		glib \
                 libzip \
                 lib3mf \
                 double-conversion \
-		&& \
-	make MXE_PLUGIN_DIRS=plugins/gcc10 clean-junk
+	&& \
+	make MXE_PLUGIN_DIRS=plugins/gcc11 clean-junk

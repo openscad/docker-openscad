@@ -20,5 +20,11 @@ RUN \
 	git checkout "${BRANCH}" && \
 	git rev-parse --abbrev-ref HEAD && \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
+
 RUN \
-	make "JOBS=${JOBS}" "-j${JOBS}" MXE_PLUGIN_DIRS=plugins/gcc10 MXE_TARGETS=i686-w64-mingw32.static.posix cc
+	make "JOBS=${JOBS}" "-j${JOBS}" \
+		MXE_PLUGIN_DIRS=plugins/gcc11 \
+		MXE_TARGETS=i686-w64-mingw32.static.posix \
+		cc \
+	&& \
+	make MXE_PLUGIN_DIRS=plugins/gcc11 clean-junk
