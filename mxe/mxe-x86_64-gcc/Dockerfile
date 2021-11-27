@@ -2,7 +2,7 @@
 # Build: docker build -t openscad/mxe-x86_64-gcc .
 # Use: docker run --rm -it openscad/mxe-x86_64-gcc
 #
-FROM openscad/mxe-requirements:latest
+FROM openscad/mxe-i686-gcc:latest
 
 ARG JOBS=2
 ARG BRANCH=openscad-snapshot-build
@@ -22,6 +22,8 @@ RUN \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 
 # use 32bit makensis from MXE. 64bit version not compatible
+# for that we use the i686-gcc base image which provides the
+# already built gcc
 RUN \
 	make "JOBS=${JOBS}" "-j${JOBS}" \
                 MXE_PLUGIN_DIRS=plugins/gcc10 \

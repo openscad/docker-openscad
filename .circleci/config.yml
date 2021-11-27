@@ -207,6 +207,7 @@ workflows:
       - mxe-x86_64-gcc:
          requires:
            - mxe-requirements
+           - mxe-i686-gcc
       - mxe-x86_64-deps:
          requires:
            - mxe-x86_64-gcc
