@@ -21,6 +21,7 @@ RUN \
 	echo "deb http://ppa.launchpad.net/beineri/opt-qt-5.15.2-bionic/ubuntu bionic main" >> /etc/apt/sources.list && \
 	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/lib3mf/xUbuntu_18.04/ ./" >> /etc/apt/sources.list && \
 	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/cgal/xUbuntu_18.04/ ./" >> /etc/apt/sources.list && \
+	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/cmake/xUbuntu_18.04/ ./" >> /etc/apt/sources.list && \
 	grep -v "^#" /etc/apt/sources.list && \
 	wget -qO - https://files.openscad.org/OBS-Repository-Key.pub | apt-key add - && \
 	apt-get update && \
