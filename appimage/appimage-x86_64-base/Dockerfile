@@ -16,7 +16,7 @@ RUN \
 	apt-get install -y --no-install-recommends apt-utils apt-transport-https ca-certificates git wget gnupg
 
 RUN \
-	apt-key adv --keyserver hkp://pool.sks-keyservers.net:80 --recv-keys C65D51784EDC19A871DBDBB710C56D0DE9977759 && \
+	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C65D51784EDC19A871DBDBB710C56D0DE9977759 && \
 	sed -ie 's/^#\s*\(.*universe\)$/\1/' /etc/apt/sources.list && \
 	echo "deb http://ppa.launchpad.net/beineri/opt-qt-5.15.2-bionic/ubuntu bionic main" >> /etc/apt/sources.list && \
 	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/lib3mf/xUbuntu_18.04/ ./" >> /etc/apt/sources.list && \
