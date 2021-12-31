@@ -28,7 +28,7 @@ build () {
 
 V=$(git log -1 --date="format:%Y.%m.%d.dd%j%H" --format="%cd")
 
-#build	tags	openscad-2015.03	2015.03	""	openscad/buster
+build	tags	openscad-2015.03-3	2015.03	""	openscad/stretch
 build	tags	openscad-2019.05	2019.05	""	openscad/buster
 build	tags	openscad-2021.01	2021.01	""	openscad/buster
 build	heads	master			dev	"$V"	openscad/bookworm
