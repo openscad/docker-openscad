@@ -12,3 +12,18 @@ For general use, please check the `openscad/openscad` images published and docum
 * openscad/appimage-*
 * openscad/mxe-*
 * openscad/src-*
+
+# Debug Builds
+
+To create a debug build with symbols table for `gdb` debugging, modify this line in `scripts/build-images.sh`
+
+
+Before
+```
+		--build-arg BUILD_TYPE="Release" \
+```
+
+After
+```
+		--build-arg BUILD_TYPE="Debug" \
+```
