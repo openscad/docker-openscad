@@ -20,10 +20,10 @@ To create a debug build with symbols table for `gdb` debugging, modify this line
 
 Before
 ```
-		--build-arg BUILD_TYPE="Release" \
+--build-arg BUILD_TYPE="Release" \
 ```
 
 After
 ```
-		--build-arg BUILD_TYPE="Debug" \
+--build-arg BUILD_TYPE="Debug" \
 ```
