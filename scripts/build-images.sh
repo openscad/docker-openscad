@@ -22,15 +22,18 @@ build () {
 		--build-arg=REFS="$REF" \
 		--build-arg=BRANCH="$BRANCH" \
 		--build-arg OPENSCAD_VERSION="$VERSION" \
+		--build-arg JOBS="1" \
 		$DOCKERFILE_ARGS \
 		"$DIR"
 }
 
 V=$(git log -1 --date="format:%Y.%m.%d.dd%j%H" --format="%cd")
 
-#build	tags	openscad-2015.03	2015.03	""	openscad/buster
-build	tags	openscad-2019.05	2019.05	""	openscad/buster
-build	tags	openscad-2021.01	2021.01	""	openscad/buster
+#build	tags	openscad-2015.03	2015.03	      ""	openscad/buster
+build	tags	openscad-2019.05	2019.05	      ""	openscad/buster
+build	tags	openscad-2021.01	2021.01	      ""	openscad/buster
+build   tags    openscad-2021.01    2021.01-focal ""  openscad/focal Dockerfile
+
 build	heads	master			dev	"$V"	openscad/bookworm
 
 docker tag openscad/openscad:2021.01 openscad/openscad:latest
