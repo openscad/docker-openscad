@@ -23,6 +23,7 @@ build () {
 		--build-arg=BRANCH="$BRANCH" \
 		--build-arg OPENSCAD_VERSION="$VERSION" \
 		--build-arg BUILD_TYPE="Release" \
+		--build-arg DEBUG="-" \
 		$DOCKERFILE_ARGS \
 		"$DIR"
 }
