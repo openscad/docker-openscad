@@ -29,7 +29,7 @@ build () {
 
 V=$(git log -1 --date="format:%Y.%m.%d.dd%j%H" --format="%cd")
 
-build	tags	openscad-2015.03	2015.03	""	openscad/buster Dockerfile
+build	tags	openscad-2015.03	2015.03	""	openscad/stretch Dockerfile
 build	tags	openscad-2019.05	2019.05	""	openscad/buster Dockerfile
 build	tags	openscad-2021.01	2021.01	""	openscad/buster Dockerfile
 build	heads	master			dev	"$V"	openscad/bookworm Dockerfile
