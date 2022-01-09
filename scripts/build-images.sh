@@ -24,6 +24,7 @@ build () {
 		--build-arg OPENSCAD_VERSION="$VERSION" \
 		--build-arg BUILD_TYPE="Release" \
 		--build-arg DEBUG="-" \
+		--build-arg JOBS="1" \
 		$DOCKERFILE_ARGS \
 		"$DIR"
 }
