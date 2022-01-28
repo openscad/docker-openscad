@@ -30,7 +30,58 @@ RUN \
 	libfontconfig-dev libzip-dev lib3mf-dev libharfbuzz-dev libxml2-dev \
 	qtbase5-dev libqt5scintilla2-dev libqt5opengl5-dev libqt5svg5-dev \
 	qtmultimedia5-dev libqt5multimedia5-plugins \
-	libglew-dev
+	libegl-dev libegl1-mesa-dev
+
+RUN \
+	echo "deb-src http://deb.debian.org/debian bookworm main" >> /etc/apt/sources.list && \
+	cat /etc/apt/sources.list && \
+	apt-get update && \
+	apt-get -y build-dep libglew-dev libopencsg-dev
+
+RUN \
+	groupadd -r openscad && \
+	useradd -r -g openscad openscad && \
+	mkdir /opencsg-build /glew-build /egl /openscad && \
+	chown openscad:openscad /opencsg-build /glew-build /egl /openscad
+
+USER openscad
+
+WORKDIR /glew-build
+
+# Build & install EGL glew
+RUN \
+	apt-get source libglew-dev && \
+	cd $(find . -maxdepth 1 -type d -name 'glew-*') && \
+	sed -i -e 's/SYSTEM[\t ?]*=.*$/SYSTEM = linux-egl/' Makefile && \
+	dch -m -l egl -m "Configure for EGL" && \
+	debuild -uc -us && \
+	cp $(ls ../libglew*.deb | egrep -v -- '-(dev|dbgsym)_') /egl/
+
+USER root
+
+RUN dpkg -i libglew*.deb
+
+USER openscad
+
+WORKDIR /opencsg-build
+
+# Build & install EGL patched version of OpenCSG
+RUN \
+	apt-get source libopencsg-dev && \
+	cd $(find . -maxdepth 1 -type d -name 'opencsg-*') && \
+	dch -m -l egl -m "Disable GLX dependencies" && \
+	sed -i -e 's/example//' opencsg.pro && \
+	sed -i -e 's/.*RenderTexture.*//' src/src.pro && \
+	sed -i -e 's/.*pBufferTexture.*/\\/' src/src.pro && \
+	sed -i -e 's/.*define.*OPENCSG_HAVE_PBUFFER.*//' src/opencsgConfig.h && \
+	sed -i -e 's/GLXEW_SGIX_[a-z]*/false/' src/channelManager.cpp && \
+	rm -rf debian/libopencsg-ex* && \
+	debuild -uc -us -nc && \
+	cp $(ls ../libopencsg*.deb | egrep -v -- '-(dev|dbg|example)_') /egl/
+
+USER root
+
+RUN dpkg -i libopencsg*.deb
 
 WORKDIR /openscad
 
@@ -56,6 +107,7 @@ RUN \
 		-DSNAPSHOT=${SNAPSHOT} \
 		-DOPENSCAD_VERSION="$OPENSCAD_VERSION" \
 		-DOPENSCAD_COMMIT="$OPENSCAD_COMMIT" \
+		-DENABLE_EGL=ON \
 		&& \
 	make -j"$JOBS" && \
 	make install
@@ -71,9 +123,15 @@ RUN apt-get install -y --no-install-recommends \
 	libboost-thread1.74.0 libboost-program-options1.74.0 libboost-filesystem1.74.0 \
 	libboost-regex1.74.0 libopencsg1 libmpfr6 libqscintilla2-qt5-15 \
 	libqt5multimedia5 libqt5concurrent5 libglu1-mesa \
-	libglew2.2 xvfb xauth
+	libopengl0
 
 RUN apt-get clean
+
+WORKDIR /tmp
+
+COPY --from=builder /egl .
+
+RUN dpkg -i *.deb && rm -f *.deb
 
 WORKDIR /usr/local
 
