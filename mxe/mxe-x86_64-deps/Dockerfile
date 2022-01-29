@@ -9,14 +9,14 @@ ARG JOBS=2
 WORKDIR /mxe
 
 RUN \
-	make "JOBS=${JOBS}" "-j${JOBS}" \
-		MXE_PLUGIN_DIRS=plugins/gcc11 \
-		MXE_TARGETS=x86_64-w64-mingw32.static.posix \
-                mpfr \
-                eigen \
-		libxml2 \
-                freetype \
-                fontconfig \
-                harfbuzz \
-		&& \
-	make MXE_PLUGIN_DIRS=plugins/gcc11 clean-junk
+  make "JOBS=${JOBS}" "-j${JOBS}" \
+    MXE_PLUGIN_DIRS=plugins/gcc11 \
+    MXE_TARGETS=x86_64-w64-mingw32.static.posix \
+      mpfr \
+      eigen \
+      libxml2 \
+      freetype \
+      fontconfig \
+      harfbuzz \
+    && \
+  make MXE_PLUGIN_DIRS=plugins/gcc11 clean-junk
