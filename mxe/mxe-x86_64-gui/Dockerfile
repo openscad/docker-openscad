@@ -2,7 +2,7 @@
 # Build: docker build -t openscad/mxe-x86_64-gui .
 # Use: docker run --rm -it openscad/mxe-x86_64-gui
 #
-FROM openscad/mxe-x86_64-deps2:latest
+FROM openscad/mxe-x86_64-deps:latest
 
 ARG JOBS=2
 
