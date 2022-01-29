@@ -9,13 +9,14 @@ ARG JOBS=2
 WORKDIR /mxe
 
 RUN \
-	make "JOBS=${JOBS}" "-j${JOBS}" \
-		MXE_PLUGIN_DIRS=plugins/gcc11 \
-		MXE_TARGETS=x86_64-w64-mingw32.static.posix \
-                cairo \
-		glib \
-                libzip \
-                lib3mf \
-                double-conversion \
-	&& \
-	make MXE_PLUGIN_DIRS=plugins/gcc11 clean-junk
+  make "JOBS=${JOBS}" "-j${JOBS}" \
+    MXE_PLUGIN_DIRS=plugins/gcc11 \
+    MXE_TARGETS=x86_64-w64-mingw32.static.posix \
+      cairo \
+      glib \
+      libzip \
+      lib3mf \
+      double-conversion \
+      nsis \
+  && \
+  make MXE_PLUGIN_DIRS=plugins/gcc11 clean-junk
