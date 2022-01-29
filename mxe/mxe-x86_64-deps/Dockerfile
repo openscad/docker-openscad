@@ -18,5 +18,11 @@ RUN \
       freetype \
       fontconfig \
       harfbuzz \
+      cairo \
+      glib \
+      libzip \
+      lib3mf \
+      double-conversion \
+      nsis \
     && \
   make MXE_PLUGIN_DIRS=plugins/gcc11 clean-junk
