@@ -10,7 +10,6 @@ WORKDIR /mxe
 
 RUN \
   make "JOBS=${JOBS}" "-j${JOBS}" \
-    MXE_PLUGIN_DIRS=plugins/gcc11 \
     MXE_TARGETS=i686-w64-mingw32.static.posix \
       mpfr \
       eigen \
@@ -25,4 +24,4 @@ RUN \
       double-conversion \
       nsis \
   && \
-  make MXE_PLUGIN_DIRS=plugins/gcc11 clean-junk
+  make clean-junk
