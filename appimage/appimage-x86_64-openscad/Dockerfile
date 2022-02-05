@@ -44,7 +44,11 @@ RUN \
 	make install DESTDIR=../AppDir
 
 RUN \
+	. /opt/qt*/bin/qt*-env.sh && \
 	export PATH=/appimage/usr/bin:"$PATH" && \
+	mv -iv AppDir/usr/share/applications/openscad.desktop AppDir/usr/share/applications/org.openscad.OpenSCAD.desktop && \
+	sed -i -e 's/openscad.desktop/org.openscad.OpenSCAD.desktop/' AppDir/usr/share/metainfo/org.openscad.OpenSCAD.appdata.xml && \
+	sed -i -e '/<content_rating/d' AppDir/usr/share/metainfo/org.openscad.OpenSCAD.appdata.xml && \
 	VERSION="${OPENSCAD_VERSION:-$(date +%Y.%m.%d).ai}" linuxdeploy --plugin qt --output appimage --appdir AppDir && \
 	mkdir -p out && \
 	cp -iv OpenSCAD*.AppImage out/
