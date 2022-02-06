@@ -13,7 +13,15 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN \
 	apt-get update && \
 	apt-get upgrade -y && \
-	apt-get install -y --no-install-recommends apt-utils apt-transport-https ca-certificates git wget gnupg appstream
+	apt-get install -y --no-install-recommends \
+		apt-transport-https \
+		ca-certificates \
+		openssh-client \
+		appstream \
+		apt-utils \
+		gnupg \
+		wget \
+		git
 
 RUN \
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C65D51784EDC19A871DBDBB710C56D0DE9977759 && \
