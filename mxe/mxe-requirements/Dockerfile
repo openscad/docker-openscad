@@ -6,4 +6,22 @@ FROM buildpack-deps:buster
 
 RUN apt-get update
 
-RUN apt-get install -y --no-install-recommends autopoint bison flex gperf libtool ninja-build ruby scons unzip p7zip-full intltool libtool libtool-bin zip lzip gnupg nsis
+RUN apt-get install -y --no-install-recommends \
+	libtool-bin \
+	ninja-build \
+	p7zip-full \
+	autopoint \
+	intltool \
+	libtool \
+	bison \
+	gnupg \
+	gperf \
+	scons \
+	unzip \
+	flex \
+	less \
+	lzip \
+	nsis \
+	ruby \
+	vim \
+	zip
