@@ -19,6 +19,7 @@ RUN \
       harfbuzz \
       cairo \
       glib \
+      intel-tbb \
       libzip \
       lib3mf \
       double-conversion \
