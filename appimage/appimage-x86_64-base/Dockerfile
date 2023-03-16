@@ -30,6 +30,7 @@ RUN \
 	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/lib3mf/xUbuntu_18.04/ ./" >> /etc/apt/sources.list && \
 	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/cgal/xUbuntu_18.04/ ./" >> /etc/apt/sources.list && \
 	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/cmake/xUbuntu_18.04/ ./" >> /etc/apt/sources.list && \
+	echo "deb http://download.opensuse.org/repositories/home:/t-paul:/opencsg-1.5/xUbuntu_18.04/ ./" >> /etc/apt/sources.list && \
 	grep -v "^#" /etc/apt/sources.list && \
 	wget -qO - https://files.openscad.org/OBS-Repository-Key.pub | apt-key add - && \
 	apt-get update && \
