@@ -25,6 +25,7 @@ RUN \
 	git rev-parse --abbrev-ref HEAD && \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 RUN \
+	export LC_ALL=C.UTF-8 ; \
 	export MXEDIR=/mxe ; \
 	export NUMCPU="$JOBS" ; \
 	export LIB3MF_INCLUDEPATH=/mxe/usr/i686-w64-mingw32.static.posix/include/lib3mf ; \
