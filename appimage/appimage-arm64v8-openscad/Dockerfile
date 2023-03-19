@@ -23,7 +23,7 @@ RUN \
 	cat version.json && rm -f version.json && \
 	git clone "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
 	git checkout "${BRANCH}" && \
-	git submodule update --init && \
+	git submodule update --init --recursive && \
 	git rev-parse --abbrev-ref HEAD && \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 

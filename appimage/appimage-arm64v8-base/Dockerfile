@@ -2,7 +2,7 @@
 # Build: docker build -t openscad/appimage-arm64v8-base .
 # Use: docker run --rm -it -v openscad/appimage-arm64v8-base
 #
-FROM arm64v8/debian:buster-slim
+FROM arm64v8/ubuntu:20.04
 
 ARG GITHUB_USER=openscad
 ARG GITHUB_REPO=openscad
@@ -18,13 +18,16 @@ RUN \
 		apt-utils apt-transport-https ca-certificates git wget \
 		patchelf gnupg ccache appstream xxd desktop-file-utils \
 		libjpeg-dev cimg-dev libcairo-dev libfuse-dev libssl-dev \
+		libgpgme-dev libgcrypt20-dev \
 		&& \
 	apt-get clean
 
 RUN \
-        echo "deb  https://download.opensuse.org/repositories/home:/t-paul:/cgal/Debian_10/ ./" >> /etc/apt/sources.list && \
+        echo "deb https://download.opensuse.org/repositories/home:/t-paul:/cgal/xUbuntu_20.04/ ./" >> /etc/apt/sources.list && \
+        echo "deb https://apt.kitware.com/ubuntu/ focal main" >> /etc/apt/sources.list && \
         grep -v "^#" /etc/apt/sources.list && \
         wget -qO - https://files.openscad.org/OBS-Repository-Key.pub | apt-key add - && \
+        wget -qO - https://apt.kitware.com/keys/kitware-archive-latest.asc | apt-key add - && \
 	apt-get update && \
 	apt-get upgrade -y && \
 	apt-get install -y --no-install-recommends libcgal-dev && \
