@@ -8,7 +8,7 @@ COUNT=0
 
 clean
 
-build mxe openscad/mxe-requirements
+build mxe openscad/mxe-requirements --no-cache
 
 # build i686-gcc first as this used as base for x86_64-gcc
 build mxe openscad/mxe-i686-gcc
