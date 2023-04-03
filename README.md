@@ -15,7 +15,7 @@ For general use, please check the `openscad/openscad` images published and docum
 
 # Debug Builds
 
-Creating an image with debug symbols depends if the app is compiled with `cmake` or `qmake`. To enable debugging set `BUILD_TYPTE="Debug"` and `DEBUG="+"` in `scripts/build-imags.sh
+Creating an image with debug symbols depends if the app is compiled with `cmake` or `qmake`. To enable debugging set `BUILD_TYPE="Debug"` and `DEBUG="+"` in `scripts/build-images.sh
 
 
 Before

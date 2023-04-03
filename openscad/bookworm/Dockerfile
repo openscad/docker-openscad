@@ -29,7 +29,8 @@ RUN \
 	gtk-doc-tools libglib2.0-dev gettext pkg-config ragel libxi-dev \
 	libfontconfig-dev libzip-dev lib3mf-dev libharfbuzz-dev libxml2-dev \
 	qtbase5-dev libqt5scintilla2-dev libqt5opengl5-dev libqt5svg5-dev \
-	qtmultimedia5-dev libqt5multimedia5-plugins \
+	qtmultimedia5-dev libqt5multimedia5-plugins libtbb-dev \
+	python3-pip python3-venv \
 	libglew-dev
 
 WORKDIR /openscad
@@ -39,7 +40,7 @@ ADD https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/refs/${REFS}/
 
 RUN \
         cat version.json | jq . && rm -f version.json && \
-        git clone "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
+        git clone --recurse-submodules "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
         git checkout "${BRANCH}" && \
         git rev-parse --abbrev-ref HEAD && \
         git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
