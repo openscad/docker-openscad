@@ -1,3 +1,5 @@
+#!/bin/bash
+
 export DOCKER_CLI_EXPERIMENTAL=enabled
 export DOCKER_BUILDKIT=1
 VERSION=$(git log -1 --date="format:%Y.%m.%d.dd%j%H" --format="%cd")
