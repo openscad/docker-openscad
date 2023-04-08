@@ -6,14 +6,17 @@ VERSION=$(git log -1 --date="format:%Y.%m.%d.dd%j%H" --format="%cd")
 echo "Version: $VERSION"
 echo "Image Name: $IMAGE_NAME"
 echo "Using BUILD_INFO=${BUILD_INFO}"
+lscpu || /bin/true
+free -m || /bin/true
+dmidecode -t system || /bin/true
 docker buildx build \
 	--push \
 	--progress plain \
 	--platform linux/amd64,linux/arm64 \
-	--build-arg=REFS="heads" \
-	--build-arg=BRANCH="master" \
+	--build-arg REFS="heads" \
+	--build-arg BRANCH="master" \
 	--build-arg OPENSCAD_VERSION="$VERSION" \
 	--build-arg BUILD_TYPE="Release" \
 	--build-arg DEBUG="-" \
-	--build-arg JOBS=4 \
+	--build-arg JOBS=2 \
 	-f $DOCKERFILE_PATH -t $IMAGE_NAME .
