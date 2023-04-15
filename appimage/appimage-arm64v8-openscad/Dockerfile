@@ -31,7 +31,7 @@ RUN \
 	export OPENSCAD_COMMIT=$(/bin/"$COMMIT" && git log -1 --pretty=format:%h || echo "") && \
 	mkdir build && \
 	cd build && \
-	cmake .. \
+	CC=clang CXX=clang++ cmake .. \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
 		-DOpenGL_GL_PREFERENCE=LEGACY \
