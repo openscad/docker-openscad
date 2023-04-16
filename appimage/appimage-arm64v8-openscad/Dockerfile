@@ -31,7 +31,8 @@ RUN \
 	export OPENSCAD_COMMIT=$(/bin/"$COMMIT" && git log -1 --pretty=format:%h || echo "") && \
 	mkdir build && \
 	cd build && \
-	CC=clang CXX=clang++ cmake .. \
+	CC=clang-12 CXX=clang++-12 cmake .. \
+		-DENABLE_TESTS=OFF \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
 		-DOpenGL_GL_PREFERENCE=LEGACY \
@@ -40,7 +41,7 @@ RUN \
 		-DOPENSCAD_VERSION="$OPENSCAD_VERSION" \
 		-DOPENSCAD_COMMIT="$OPENSCAD_COMMIT" \
 		&& \
-	make -j"$JOBS" && \
+	make "-j$JOBS" && \
 	make install DESTDIR=../AppDir
 
 RUN \

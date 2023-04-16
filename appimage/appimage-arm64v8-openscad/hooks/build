@@ -12,6 +12,6 @@ docker buildx build \
 	--load \
 	--progress plain \
 	--platform linux/arm64 \
-	--build-arg JOBS=3 \
+	--build-arg JOBS=4 \
 	--build-arg OPENSCAD_VERSION="${VERSION}" \
 	-f $DOCKERFILE_PATH -t $IMAGE_NAME .
