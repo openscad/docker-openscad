@@ -32,6 +32,7 @@ RUN \
 	mkdir build && \
 	cd build && \
 	CC=clang-12 CXX=clang++-12 cmake .. \
+		-GNinja \
 		-DENABLE_TESTS=OFF \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
@@ -41,8 +42,8 @@ RUN \
 		-DOPENSCAD_VERSION="$OPENSCAD_VERSION" \
 		-DOPENSCAD_COMMIT="$OPENSCAD_COMMIT" \
 		&& \
-	make "-j$JOBS" && \
-	make install DESTDIR=../AppDir
+	cmake --build . "-j$JOBS" && \
+	cmake --install ../AppDir
 
 RUN \
 	export PATH=/appimage/usr/bin:"$PATH" && \
