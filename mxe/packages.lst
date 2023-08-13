@@ -1,0 +1,19 @@
+TARGET_32=i686-w64-mingw32.static.posix
+TARGET_64=x86_64-w64-mingw32.static.posix
+
+PLUGIN_DIRS=plugins/gcc13
+
+PKG_MXE_GCC="cc"
+PKG_MXE_DEP="mpfr eigen libxml2 freetype fontconfig harfbuzz cairo glib intel-tbb libzip lib3mf double-conversion nsis"
+PKG_MXE_GUI="opencsg cgal qtbase qtmultimedia qtgamepad qtsvg qscintilla2"
+PKG_MXE_ALL="$PKG_MXE_GCC $PKG_MXE_DEP $PKG_MXE_GUI"
+
+set -f
+set -- $PKG_MXE_ALL
+set -- ${@/#/download-}
+PKG_DOWNLOAD_ALL="$@"
+
+for var in TARGET_32 TARGET_64 PLUGIN_DIRS PKG_MXE_GCC PKG_MXE_DEP PKG_MXE_GUI PKG_MXE_ALL PKG_DOWNLOAD_ALL
+do
+	echo "export ${var}=\"${!var}\""
+done

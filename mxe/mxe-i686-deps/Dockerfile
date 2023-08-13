@@ -2,27 +2,20 @@
 # Build: docker build -t openscad/mxe-i686-deps .
 # Use: docker run --rm -it openscad/mxe-i686-deps
 #
-FROM openscad/mxe-i686-gcc:latest
+FROM openscad/mxe-base:latest
 
 ARG JOBS=2
+ARG CLEAN=clean-junk
 
 WORKDIR /mxe
 
 RUN \
-  make "JOBS=${JOBS}" "-j${JOBS}" \
-    MXE_TARGETS=i686-w64-mingw32.static.posix \
-      mpfr \
-      eigen \
-      libxml2 \
-      freetype \
-      fontconfig \
-      harfbuzz \
-      cairo \
-      glib \
-      intel-tbb \
-      libzip \
-      lib3mf \
-      double-conversion \
-      nsis \
-  && \
-  make clean-junk
+	--mount=type=cache,id=pkg,target=/mxe/pkg \
+	eval `bash /tmp/packages.lst` && \
+	make "JOBS=${JOBS}" "-j${JOBS}" \
+		MXE_SETTINGS_FILE=/tmp/settings.mk \
+		MXE_PLUGIN_DIRS="${PLUGIN_DIRS}" \
+		MXE_TARGETS="${TARGET_32}" \
+		${PKG_MXE_DEP} \
+	&& \
+	make ${CLEAN}

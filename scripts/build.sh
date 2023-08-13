@@ -19,7 +19,7 @@ build () {
 	echo "* $(date): building $NAME (using JOBS=$JOBS)" | tee -a "$LOG"
 	echo "* $(date): log in $LOG" | tee -a "$LOG"
 	echo "*" | tee -a "$LOG"
-	time docker build -t "$TAG":latest --build-arg="JOBS=$JOBS" "$@" "$DIR"/"$NAME"/ 2>&1 >> "$LOG"
+	time DOCKER_BUILDKIT=1 BUILDKIT_PROGRESS=plain docker build --progress=plain -t "$TAG":latest --build-arg="JOBS=$JOBS" "$@" -f "$DIR"/"$NAME"/Dockerfile "$DIR" 2>&1 >> "$LOG"
 	echo "*" | tee -a "$LOG"
 	echo "* $(date): finished $NAME" | tee -a "$LOG"
 	echo "*" | tee -a "$LOG"

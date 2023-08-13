@@ -20,16 +20,20 @@ ADD https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/refs/${REFS}/
 
 RUN \
 	cat version.json && rm -f version.json && \
-	git clone "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
+	git clone --recursive "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
 	git checkout "${BRANCH}" && \
 	git rev-parse --abbrev-ref HEAD && \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 RUN \
 	export LC_ALL=C.UTF-8 ; \
 	export MXEDIR=/mxe ; \
+	export PKG_CONFIG_PATH=/mxe/usr/x86_64-w64-mingw32.static.posix/lib/pkgconfig ; \
+	bash -c 'ln -sfv $PKG_CONFIG_PATH/{intel-,}tbb.pc' ; \
+	bash -c 'ln -sfv /usr/bin/python{3,}' ; \
 	export NUMCPU="$JOBS" ; \
 	export LIB3MF_INCLUDEPATH=/mxe/usr/x86_64-w64-mingw32.static.posix/include/lib3mf ; \
-	export LIB3MF_LIBPATH=/mxe/usr/i686-w64-mingw32.static.posix/lib ; \
+	export LIB3MF_LIBPATH=/mxe/usr/x86_64-w64-mingw32.static.posix/lib ; \
+	sed -ie 's/WARNING_FLAGS -Werror/WARNING_FLAGS/' submodules/manifold/CMakeLists.txt ; \
 	./scripts/release-common.sh -v "${OPENSCAD_VERSION}" mingw64 ${RELEASE_TYPE} ; \
 	mkdir -p out; \
 	for f in mingw*/*.zip mingw*/*Installer.exe; do \

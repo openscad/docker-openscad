@@ -5,18 +5,17 @@
 FROM openscad/mxe-i686-deps:latest
 
 ARG JOBS=2
+ARG CLEAN=clean-junk
 
 WORKDIR /mxe
 
 RUN \
+	--mount=type=cache,id=pkg,target=/mxe/pkg \
+	eval `bash /tmp/packages.lst` && \
 	make "JOBS=${JOBS}" "-j${JOBS}" \
-		MXE_TARGETS=i686-w64-mingw32.static.posix \
-                opencsg \
-                cgal \
-                qtbase \
-                qtmultimedia \
-                qtgamepad \
-                qtsvg \
-                qscintilla2 \
-		&& \
-	make clean-junk
+		MXE_SETTINGS_FILE=/tmp/settings.mk \
+		MXE_PLUGIN_DIRS="${PLUGIN_DIRS}" \
+		MXE_TARGETS="${TARGET_32}" \
+		${PKG_MXE_GUI} \
+	&& \
+	make ${CLEAN}
