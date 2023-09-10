@@ -19,6 +19,7 @@ RUN \
 		patchelf gnupg ccache appstream xxd desktop-file-utils \
 		libjpeg-dev cimg-dev libcairo-dev libfuse-dev libssl-dev \
 		libgpgme-dev libgcrypt20-dev clang clang-12 ninja-build \
+		itstool \
 		&& \
 	apt-get clean
 
