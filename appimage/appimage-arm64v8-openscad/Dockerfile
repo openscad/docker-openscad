@@ -32,7 +32,8 @@ RUN \
 	mkdir build && \
 	cd build && \
 	CC=clang-12 CXX=clang++-12 cmake .. \
-		-GNinja \
+		-G'Unix Makefiles' \
+		-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
 		-DENABLE_TESTS=OFF \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
