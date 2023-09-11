@@ -21,9 +21,7 @@ ADD https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/refs/${REFS}/
 
 RUN \
 	cat version.json && rm -f version.json && \
-	git clone "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
-	git checkout "${BRANCH}" && \
-	git submodule update --init && \
+	git clone --recursive --single-branch --branch "${BRANCH}" --shallow-submodules "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
 	git rev-parse --abbrev-ref HEAD && \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 
