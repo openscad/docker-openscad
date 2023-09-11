@@ -42,8 +42,10 @@ RUN \
 		-DOPENSCAD_VERSION="$OPENSCAD_VERSION" \
 		-DOPENSCAD_COMMIT="$OPENSCAD_COMMIT" \
 		&& \
-	cmake --build . "-j$JOBS" && \
-	cmake --install ../AppDir
+	cmake --build . "-j$JOBS" -v
+
+RUN \
+	cmake --install build --prefix=AppDir/usr -v
 
 RUN \
 	export PATH=/appimage/usr/bin:"$PATH" && \
