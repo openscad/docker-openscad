@@ -31,9 +31,8 @@ RUN \
 	export OPENSCAD_COMMIT=$(/bin/"$COMMIT" && git log -1 --pretty=format:%h || echo "") && \
 	mkdir build && \
 	cd build && \
-	CC=clang-12 CXX=clang++-12 cmake .. \
-		-G'Unix Makefiles' \
-		-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
+	cmake .. \
+		-GNinja \
 		-DENABLE_TESTS=OFF \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
