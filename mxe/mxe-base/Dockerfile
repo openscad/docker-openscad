@@ -6,7 +6,9 @@
 FROM openscad/mxe-requirements:latest
 
 ARG JOBS=2
+ARG MXE_REF=tags
 ARG MXE_BRANCH=openscad-snapshot-build
+ARG MXE_CLONE_DEPTH=5
 ARG MXE_GITHUB_USER=openscad
 ARG MXE_GITHUB_REPO=mxe
 ARG CLEAN=clean-junk
@@ -17,14 +19,13 @@ COPY settings.mk /tmp
 WORKDIR /mxe
 
 # Invalidate docker cache if the branch changes
-ADD https://api.github.com/repos/${MXE_GITHUB_USER}/${MXE_GITHUB_REPO}/git/refs/heads/${MXE_BRANCH} version.json
+ADD https://api.github.com/repos/${MXE_GITHUB_USER}/${MXE_GITHUB_REPO}/git/refs/${MXE_REF}/${MXE_BRANCH} version.json
 
 RUN \
 	cat version.json && rm -f version.json && \
-	git clone "https://github.com/${MXE_GITHUB_USER}/${MXE_GITHUB_REPO}" . && \
-	git checkout "${MXE_BRANCH}" && \
+	git clone --recursive --depth "${MXE_CLONE_DEPTH} --single-branch --branch "${MXE_BRANCH}" "https://github.com/${MXE_GITHUB_USER}/${MXE_GITHUB_REPO}" . && \
 	git rev-parse --abbrev-ref HEAD && \
-	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
+	git log -n"${MXE_CLONE_DEPTH}" --pretty=tformat:"%h %ai (%aN) %s"
 
 RUN \
 	--mount=type=cache,id=pkg,target=/mxe/pkg \
