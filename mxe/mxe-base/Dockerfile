@@ -23,7 +23,7 @@ ADD https://api.github.com/repos/${MXE_GITHUB_USER}/${MXE_GITHUB_REPO}/git/refs/
 
 RUN \
 	cat version.json && rm -f version.json && \
-	git clone --recursive --depth "${MXE_CLONE_DEPTH} --single-branch --branch "${MXE_BRANCH}" "https://github.com/${MXE_GITHUB_USER}/${MXE_GITHUB_REPO}" . && \
+	git clone --recursive --depth "${MXE_CLONE_DEPTH}" --single-branch --branch "${MXE_BRANCH}" "https://github.com/${MXE_GITHUB_USER}/${MXE_GITHUB_REPO}" . && \
 	git rev-parse --abbrev-ref HEAD && \
 	git log -n"${MXE_CLONE_DEPTH}" --pretty=tformat:"%h %ai (%aN) %s"
 
