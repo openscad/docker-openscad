@@ -1,7 +1,8 @@
 TARGET_32=i686-w64-mingw32.static.posix
 TARGET_64=x86_64-w64-mingw32.static.posix
 
-PLUGIN_DIRS=plugins/gcc13
+#PLUGIN_DIRS=plugins/gcc13
+PLUGIN_DIRS=
 
 PKG_MXE_GCC="cc"
 PKG_MXE_DEP="mpfr eigen libxml2 freetype fontconfig harfbuzz cairo glib intel-tbb libzip lib3mf double-conversion nsis"
