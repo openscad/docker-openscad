@@ -29,7 +29,7 @@ RUN apt-get -y install --no-install-recommends \
 	gtk-doc-tools libglib2.0-dev gettext pkg-config ragel libxi-dev \
 	libfontconfig-dev libzip-dev lib3mf-dev libharfbuzz-dev libxml2-dev \
 	qtbase5-dev libqt5scintilla2-dev libqt5opengl5-dev libqt5svg5-dev \
-	qtmultimedia5-dev libqt5multimedia5-plugins qt5-default
+	qtmultimedia5-dev libqt5multimedia5-plugins qt5-default binutils
 
 WORKDIR /openscad
 
@@ -56,6 +56,8 @@ RUN \
 		CONFIG${SNAPSHOT}=snapshot \
 		CONFIG${DEBUG}=debug && \
         make -j"$JOBS"
+
+RUN strip --remove-section=.note.ABI-tag /usr/lib/x86_64-linux-gnu/libQt5Core.so.5
 
 RUN make install INSTALL_ROOT=/
 
