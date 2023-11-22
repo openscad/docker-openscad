@@ -28,7 +28,6 @@ RUN \
 	export LC_ALL=C.UTF-8 ; \
 	export MXEDIR=/mxe ; \
 	export PKG_CONFIG_PATH=/mxe/usr/x86_64-w64-mingw32.static.posix/lib/pkgconfig ; \
-	bash -c 'ln -sfv $PKG_CONFIG_PATH/{intel-,}tbb.pc' ; \
 	bash -c 'ln -sfv /usr/bin/python{3,}' ; \
 	export NUMCPU="$JOBS" ; \
 	export LIB3MF_INCLUDEPATH=/mxe/usr/x86_64-w64-mingw32.static.posix/include/lib3mf ; \
