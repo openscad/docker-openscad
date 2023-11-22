@@ -22,9 +22,9 @@ RUN \
 # Dev dependencies
 RUN \
 	apt-get -y install --no-install-recommends \
-	build-essential curl libffi-dev  libxmu-dev cmake bison flex \
+	build-essential curl libffi-dev libxmu-dev cmake bison flex \
 	git-core libboost-all-dev libmpfr-dev libboost-dev \
-	libcairo2-dev  libeigen3-dev libcgal-dev libopencsg-dev libgmp3-dev \
+	libcairo2-dev libeigen3-dev libcgal-dev libgmp3-dev \
 	libgmp-dev imagemagick libfreetype6-dev libdouble-conversion-dev \
 	gtk-doc-tools libglib2.0-dev gettext pkg-config ragel libxi-dev \
 	libfontconfig-dev libzip-dev lib3mf-dev libharfbuzz-dev libxml2-dev \
@@ -39,15 +39,14 @@ WORKDIR /openscad
 ADD https://api.github.com/repos/${GITHUB_USER}/${GITHUB_REPO}/git/refs/${REFS}/${BRANCH} version.json
 
 RUN \
-        cat version.json | jq . && rm -f version.json && \
-        git clone --recurse-submodules "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
-        git checkout "${BRANCH}" && \
-        git rev-parse --abbrev-ref HEAD && \
-        git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
+	cat version.json | jq . && rm -f version.json && \
+	git clone --recurse-submodules "https://github.com/${GITHUB_USER}/${GITHUB_REPO}" . && \
+	git checkout "${BRANCH}" && \
+	git rev-parse --abbrev-ref HEAD && \
+	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 
 RUN \
-	git submodule update --init && \
-        export OPENSCAD_COMMIT=$(/bin/"$COMMIT" && git log -1 --pretty=format:%h || echo "") && \
+	export OPENSCAD_COMMIT=$(/bin/"$COMMIT" && git log -1 --pretty=format:%h || echo "") && \
 	mkdir build && \
 	cd build && \
 	cmake .. \
@@ -55,6 +54,7 @@ RUN \
 		-DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
 		-DEXPERIMENTAL=${SNAPSHOT} \
 		-DSNAPSHOT=${SNAPSHOT} \
+		-DUSE_BUILTIN_OPENCSG=ON \
 		-DOPENSCAD_VERSION="$OPENSCAD_VERSION" \
 		-DOPENSCAD_COMMIT="$OPENSCAD_COMMIT" \
 		&& \
@@ -70,7 +70,7 @@ RUN apt-get -y full-upgrade
 RUN apt-get install -y --no-install-recommends \
 	libcairo2 libdouble-conversion3 libxml2 lib3mf1 libzip4 libharfbuzz0b \
 	libboost-thread1.74.0 libboost-program-options1.74.0 libboost-filesystem1.74.0 \
-	libboost-regex1.74.0 libopencsg1 libmpfr6 libqscintilla2-qt5-15 \
+	libboost-regex1.74.0 libmpfr6 libqscintilla2-qt5-15 \
 	libqt5multimedia5 libqt5concurrent5 libtbb12 libglu1-mesa \
 	libglew2.2 xvfb xauth
 
