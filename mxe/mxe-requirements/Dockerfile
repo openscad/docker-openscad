@@ -30,5 +30,6 @@ RUN apt-get install -y --no-install-recommends \
 	nsis \
 	ruby \
 	ncat \
+	zstd \
 	vim \
 	zip
