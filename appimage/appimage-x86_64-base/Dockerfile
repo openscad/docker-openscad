@@ -81,3 +81,11 @@ RUN \
 	rm -rf squashfs-root && \
 	rm -rf *.AppImage && \
 	find /appimage
+
+RUN \
+	dpkg --purge $(dpkg -l 'libqscintilla2-qt5*' | grep ^ii | awk '{ print $2 }') && \
+	wget -q https://www.riverbankcomputing.com/static/Downloads/QScintilla/2.14.1/QScintilla_src-2.14.1.tar.gz && \
+	tar xvf QScintilla_src-2.14.1.tar.gz && \
+	cd QScintilla_src-2.14.1/src && \
+	qmake && \
+	make -j2 && make install

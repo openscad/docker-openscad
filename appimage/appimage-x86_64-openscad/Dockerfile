@@ -48,7 +48,6 @@ RUN \
 
 RUN \
 	export PATH=/appimage/usr/bin:"$PATH" && \
-	( cd AppDir/usr/bin && ln -s openscad openscad-python ) && \
 	mv -iv AppDir/usr/share/applications/openscad.desktop AppDir/usr/share/applications/org.openscad.OpenSCAD.desktop && \
 	sed -i -e 's/openscad.desktop/org.openscad.OpenSCAD.desktop/' AppDir/usr/share/metainfo/org.openscad.OpenSCAD.appdata.xml && \
 	sed -i -e '/<content_rating/d' AppDir/usr/share/metainfo/org.openscad.OpenSCAD.appdata.xml && \
