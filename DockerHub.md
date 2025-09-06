@@ -4,12 +4,13 @@ Maintained by the [OpenSCAD](https://www.openscad.org/) Team.
 
 ## Supported tags and respective Dockerfile links
 
-* [`dev`](https://github.com/openscad/docker-openscad/blob/main/openscad/bookworm/Dockerfile) based on Debian bookworm
-* [`2021.01`](https://github.com/openscad/docker-openscad/blob/main/openscad/buster/Dockerfile) `latest` based on Debian buster
-* [`2019.05`](https://github.com/openscad/docker-openscad/blob/main/openscad/buster/Dockerfile) based on Debian buster
-* [`2015.03`](https://github.com/openscad/docker-openscad/blob/main/openscad/buster/Dockerfile) based on Debian stretch
+* [`trixie`](https://github.com/openscad/docker-openscad/blob/main/openscad/trixie/Dockerfile) **`dev`** based on Debian 13 (trixie)
+* [`bookworm`](https://github.com/openscad/docker-openscad/blob/main/openscad/bookworm/Dockerfile) based on Debian 12 (bookworm)
+* [`2021.01`](https://github.com/openscad/docker-openscad/blob/main/openscad/buster/Dockerfile) **`latest`** based on Debian 11 (buster)
+* [`2019.05`](https://github.com/openscad/docker-openscad/blob/main/openscad/buster/Dockerfile) based on Debian 11 (buster)
+* [`2015.03`](https://github.com/openscad/docker-openscad/blob/main/openscad/buster/Dockerfile) based on Debian 10 (stretch)
 
-The `dev`tag is rebuilt regularly from the `master` branch of the OpenSCAD repository. Additional tags are set with the date of the build, so for example the build on March 25th, 2024 will be tagged as both `dev` and `dev.2024-03-25`. 
+The `dev`tag is rebuilt regularly from the `master` branch of the OpenSCAD repository. Additional tags are set with the date of the build, so for example the build on March 25th, 2024 will be tagged as both `dev` and `dev.2024-03-25`.
 
 ## Quick Reference
 
