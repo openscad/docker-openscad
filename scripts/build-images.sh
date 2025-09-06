@@ -1,4 +1,6 @@
-#!/bin/bash -xe
+#!/bin/bash
+
+set -euo pipefail
 
 build () {
 	REF="$1"
@@ -8,6 +10,18 @@ build () {
 	VERSION="$5"
 	DIR="$6"
 	FILE="$7"
+	FILTER="$8"
+
+	if [ -z "$FILTER" ]
+	then
+		echo -e "\t$DOCKERTAG1 ($DIR)"
+		return
+	fi
+
+	if [ "$FILTER" != "*" -a "$FILTER" != "$DOCKERTAG1" ]
+	then
+		return
+	fi
 
 	DOCKERTAG1_ARGS=""
 	DOCKERTAG2_ARGS=""
@@ -30,6 +44,7 @@ build () {
 	echo "Building $BRANCH with version $VERSION..."
 	docker buildx build \
 		--push \
+		--progress=plain \
 		--platform linux/amd64,linux/arm64 \
 		--build-arg=REFS="$REF" \
 		--build-arg=BRANCH="$BRANCH" \
@@ -45,10 +60,13 @@ build () {
 
 V=$(git log -1 --date="format:%Y.%m.%d.dd%j%H" --format="%cd")
 
-build	tags	openscad-2015.03-3	2015.03	""	""	openscad/stretch	Dockerfile
-build	tags	openscad-2019.05	2019.05	""	""	openscad/buster		Dockerfile
-build	tags	openscad-2021.01	2021.01	latest	""	openscad/buster		Dockerfile
-build	heads	master			dev	""	"$V"	openscad/bookworm	Dockerfile
-build	heads	master			egl	""	"$V"	openscad/bookworm	Dockerfile.egl
+build	tags	openscad-2015.03-3	2015.03		""	""	openscad/stretch	Dockerfile	"${1-}"
+build	tags	openscad-2019.05	2019.05		""	""	openscad/buster		Dockerfile	"${1-}"
+build	tags	openscad-2021.01	2021.01		latest	""	openscad/buster		Dockerfile	"${1-}"
+
+build	heads	master			bookworm	""	"$V"	openscad/bookworm	Dockerfile	"${1-}"
+build	heads	master			bookworm-egl	egl	"$V"	openscad/bookworm	Dockerfile.egl	"${1-}"
+
+build	heads	master			trixie		dev	"$V"	openscad/trixie		Dockerfile	"${1-}"
 
 docker image list -f 'reference=openscad/openscad'
