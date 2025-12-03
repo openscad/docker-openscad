@@ -110,7 +110,7 @@ RUN \
     libcairo2 libdouble-conversion3 libxml2 lib3mf1 libzip5 libharfbuzz0b \
     libboost-thread1.83.0 libboost-program-options1.83.0 libboost-filesystem1.83.0 \
     libboost-regex1.83.0 libmpfr6 libqscintilla2-qt5-15 \
-    libqt5multimedia5 libqt5concurrent5 libtbb12 libglu1-mesa && \
+    libqt5multimedia5 libqt5concurrent5 libqt5svg5 libtbb12 libglu1-mesa && \
   echo "**** cleanup ****" && \
   apt-get autoclean && \
   rm -rf \
