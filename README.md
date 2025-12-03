@@ -38,6 +38,8 @@ Note that PNG renderings currently still needs the X display. That limitation ca
 
 For running OpenSCAD with a full graphical interface accessible via web browser, use the Selkies-based image.
 
+![OpenSCAD GUI via Selkies](demo-screenshots/05-csg-preview-rendered.png)
+
 ### Building
 
 ```bash
