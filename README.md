@@ -34,6 +34,35 @@ docker run \
 
 Note that PNG renderings currently still needs the X display. That limitation can go away soon due to the built-in EGL support. So this needs `--init` and run via `xvfb-run`.
 
+## Web-based GUI (Selkies)
+
+For running OpenSCAD with a full graphical interface accessible via web browser, use the Selkies-based image.
+
+### Building
+
+```bash
+cd openscad/trixie-selkies
+docker build --build-arg JOBS=$(nproc) -t openscad-selkies:trixie .
+```
+
+### Running
+
+```bash
+docker run -d \
+    --name openscad-gui \
+    -p 3000:3000 \
+    -v $(pwd):/openscad \
+    -v openscad-config:/config \
+    openscad-selkies:trixie
+```
+
+Then open http://localhost:3000 in your web browser to access OpenSCAD.
+
+To stop the container:
+```bash
+docker stop openscad-gui && docker rm openscad-gui
+```
+
 ## CI support, for internal use
 
 * `openscad/appimage-*`
