@@ -90,8 +90,7 @@ LABEL build_version="OpenSCAD version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="docker-openscad"
 
 # title
-ENV TITLE=OpenSCAD \
-    NO_FULL=true
+ENV TITLE=OpenSCAD
 
 ENV DEBIAN_FRONTEND=noninteractive
 
