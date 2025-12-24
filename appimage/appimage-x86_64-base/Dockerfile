@@ -203,7 +203,7 @@ WORKDIR /openscad
 
 ARG OPENSCAD_COMMIT=cfdd775c439094698f1c6e5595b7574f636af4da
 ARG SNAPSHOT=ON
-ARG JOBS=2
+ARG JOBS=4
 
 RUN \
     git clone "https://github.com/openscad/openscad" . && \
