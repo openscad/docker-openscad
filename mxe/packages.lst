@@ -6,7 +6,7 @@ PLUGIN_DIRS=plugins/gcc14
 
 PKG_MXE_GCC="cc"
 PKG_MXE_DEP="mpfr eigen libxml2 freetype fontconfig harfbuzz cairo glib onetbb libzip lib3mf double-conversion nettle nsis"
-PKG_MXE_GUI="opencsg cgal qtbase qtmultimedia qtgamepad qtsvg qscintilla2"
+PKG_MXE_GUI="opencsg cgal qtbase qtmultimedia qtgamepad qtsvg qscintilla2 qt6-qtbase qt6-multimedia qt6-qtsvg qt6-qt5compat"
 PKG_MXE_ALL="$PKG_MXE_GCC $PKG_MXE_DEP $PKG_MXE_GUI"
 
 set -f
