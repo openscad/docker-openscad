@@ -48,8 +48,6 @@ RUN \
 	git rev-parse --abbrev-ref HEAD && \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
 
-COPY uni-get-dependencies.sh scripts/
-
 RUN \
 	./scripts/uni-get-dependencies.sh qt6
 
