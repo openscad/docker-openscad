@@ -17,21 +17,7 @@ RUN apt-get update && apt-get -y full-upgrade
 # Base setup
 RUN \
 	apt-get install -y --no-install-recommends \
-	build-essential devscripts apt-utils apt-transport-https ca-certificates git wget jq
-
-# Dev dependencies
-RUN \
-	apt-get -y install --no-install-recommends \
-	build-essential curl libffi-dev libxmu-dev cmake bison flex \
-	git-core libboost-all-dev libmpfr-dev libboost-dev \
-	libcairo2-dev libeigen3-dev libcgal-dev libgmp3-dev \
-	libgmp-dev imagemagick libfreetype6-dev libdouble-conversion-dev \
-	gtk-doc-tools libglib2.0-dev gettext pkg-config ragel libxi-dev \
-	libfontconfig-dev libzip-dev lib3mf-dev libharfbuzz-dev libxml2-dev \
-	qtbase5-dev libqt5scintilla2-dev libqt5opengl5-dev libqt5svg5-dev \
-	qtmultimedia5-dev libqt5multimedia5-plugins libtbb-dev \
-	python3-pip python3-venv \
-	libglew-dev
+	build-essential binutils devscripts apt-utils apt-transport-https ca-certificates git wget jq
 
 WORKDIR /openscad
 
@@ -44,6 +30,12 @@ RUN \
 	git checkout "${BRANCH}" && \
 	git rev-parse --abbrev-ref HEAD && \
 	git log -n8 --pretty=tformat:"%h %ai (%aN) %s"
+
+RUN \
+	./scripts/uni-get-dependencies.sh qt6
+
+RUN \
+	./scripts/check-dependencies.sh
 
 RUN \
 	export OPENSCAD_COMMIT=$(/bin/"$COMMIT" && git log -1 --pretty=format:%h || echo "") && \
@@ -63,6 +55,12 @@ RUN \
 
 FROM debian:bookworm-slim
 
+ENV DEBIAN_FRONTEND=noninteractive
+
+WORKDIR /usr/local
+
+COPY --from=builder /usr/local/ .
+
 RUN apt-get update
 
 RUN apt-get -y full-upgrade
@@ -70,14 +68,10 @@ RUN apt-get -y full-upgrade
 RUN apt-get install -y --no-install-recommends \
 	libcairo2 libdouble-conversion3 libxml2 lib3mf1 libzip4 libharfbuzz0b \
 	libboost-thread1.74.0 libboost-program-options1.74.0 libboost-filesystem1.74.0 \
-	libboost-regex1.74.0 libmpfr6 libqscintilla2-qt5-15 \
-	libqt5multimedia5 libqt5concurrent5 libtbb12 libglu1-mesa \
-	libglew2.2 xvfb xauth
+	libboost-regex1.74.0 libmpfr6 libtbb12 libglu1-mesa libmimalloc2.0 \
+	libqt6multimedia6 libqt6concurrent6 libqt6core5compat6 libqt6openglwidgets6 \
+	libqscintilla2-qt6-15
 
 RUN apt-get clean
-
-WORKDIR /usr/local
-
-COPY --from=builder /usr/local/ .
 
 WORKDIR /openscad
