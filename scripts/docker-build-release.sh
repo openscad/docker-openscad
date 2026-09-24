@@ -50,6 +50,7 @@ main () {
 	echo "2) MXE 64-bit"
 	echo "3) AppImage x86 64-bit"
 	echo "4) AppImage ARM 64-bit"
+	echo "5) AppImage RISC-V 64-bit"
 	echo ""
 	echo "9) Sources"
 	echo ""
@@ -74,6 +75,10 @@ main () {
 		4)
 			build openscad/appimage-arm64v8-openscad appimage/appimage-arm64v8-openscad/ --build-arg SNAPSHOT=-
 			run openscad/appimage-arm64v8-openscad
+			;;
+		5)
+			build openscad/appimage-riscv64-openscad appimage/appimage-riscv64-openscad/ --build-arg SNAPSHOT=-
+			run openscad/appimage-riscv64-openscad
 			;;
 		9)
 			build openscad/src-openscad src/src-openscad --build-arg TAG="${BRANCH}"

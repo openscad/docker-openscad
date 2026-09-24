@@ -14,4 +14,7 @@ build appimage openscad/appimage-x86_64-openscad
 build appimage openscad/appimage-arm64v8-base
 build appimage openscad/appimage-arm64v8-openscad
 
+build appimage openscad/appimage-riscv64-base
+build appimage openscad/appimage-riscv64-openscad
+
 list 'openscad/appimage-*'

@@ -67,9 +67,11 @@ docker stop openscad-gui && docker rm openscad-gui
 
 ## CI support, for internal use
 
-* `openscad/appimage-*`
+* `openscad/appimage-*` (x86\_64, arm64v8, riscv64)
 * `openscad/mxe-*`
 * `openscad/src-*`
+
+The trixie-based Docker images and AppImage builds support linux/amd64, linux/arm64, and linux/riscv64.
 
 All docker images can be viewed with a [Docker Hub search for `openscad/`](https://hub.docker.com/search?q=openscad%2F&image_filter=open_source&type=image).
 

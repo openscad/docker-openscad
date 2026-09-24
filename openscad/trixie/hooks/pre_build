@@ -5,6 +5,6 @@ export DOCKER_BUILDKIT=1
 docker buildx create \
 	--name builder \
 	--driver docker-container \
-	--platform linux/amd64,linux/arm64 \
+	--platform linux/amd64,linux/arm64,linux/riscv64 \
 	--use
 docker buildx inspect --bootstrap

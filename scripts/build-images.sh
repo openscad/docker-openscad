@@ -11,6 +11,7 @@ build () {
 	DIR="$6"
 	FILE="$7"
 	FILTER="$8"
+	PLATFORM="${9:-linux/amd64,linux/arm64}"
 
 	if [ -z "$FILTER" ]
 	then
@@ -45,7 +46,7 @@ build () {
 	docker buildx build \
 		--push \
 		--progress=plain \
-		--platform linux/amd64,linux/arm64 \
+		--platform $PLATFORM \
 		--build-arg=REFS="$REF" \
 		--build-arg=BRANCH="$BRANCH" \
 		--build-arg OPENSCAD_VERSION="$VERSION" \
@@ -67,6 +68,6 @@ build	tags	openscad-2021.01	2021.01		latest	""	openscad/buster		Dockerfile	"${1-
 build	heads	master			bookworm	""	"$V"	openscad/bookworm	Dockerfile	"${1-}"
 build	heads	master			bookworm-egl	egl	"$V"	openscad/bookworm	Dockerfile.egl	"${1-}"
 
-build	heads	master			trixie		dev	"$V"	openscad/trixie		Dockerfile	"${1-}"
+build	heads	master			trixie		dev	"$V"	openscad/trixie		Dockerfile	"${1-}"	linux/amd64,linux/arm64,linux/riscv64
 
 docker image list -f 'reference=openscad/openscad'
