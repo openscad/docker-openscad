@@ -7,6 +7,12 @@ FROM openscad/mxe-x86_64-deps:latest
 ARG JOBS=2
 ARG CLEAN=clean-junk
 
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update
+
+RUN apt-get install -y --no-install-recommends python3-yaml
+
 COPY packages.lst /tmp
 COPY settings.mk /tmp
 
