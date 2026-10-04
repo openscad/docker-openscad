@@ -4,7 +4,7 @@
 #
 FROM openscad/mxe-x86_64-deps:latest
 
-ARG JOBS=2
+ARG JOBS=4
 ARG CLEAN=clean-junk
 
 ENV DEBIAN_FRONTEND=noninteractive
