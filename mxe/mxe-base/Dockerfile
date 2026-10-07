@@ -5,7 +5,7 @@
 #
 FROM openscad/mxe-requirements:latest
 
-ARG JOBS=2
+ARG JOBS=4
 ARG MXE_REF=tags
 ARG MXE_BRANCH=openscad-snapshot-build
 ARG MXE_CLONE_DEPTH=20

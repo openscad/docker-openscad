@@ -4,7 +4,7 @@
 #
 FROM openscad/mxe-base:latest
 
-ARG JOBS=2
+ARG JOBS=4
 ARG CLEAN=clean-junk
 
 COPY packages.lst /tmp
