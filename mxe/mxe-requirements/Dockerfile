@@ -11,6 +11,7 @@ RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
 	python-is-python3 \
 	python3-mako \
+	python3-yaml \
 	libgl1-mesa-dev \
 	libclang-dev \
 	libpcre2-dev \
