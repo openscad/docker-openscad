@@ -92,4 +92,12 @@ RUN apt-get install -y --no-install-recommends \
 
 RUN apt-get clean
 
+LABEL "org.opencontainers.image.authors"="The OpenSCAD Developers"
+LABEL "org.opencontainers.image.url"="https://openscad.org/"
+LABEL "org.opencontainers.image.documentation"="https://hub.docker.com/r/openscad/openscad"
+LABEL "org.opencontainers.image.source"="https://github.com/openscad/openscad/"
+LABEL "org.opencontainers.image.licenses"="GPL-3.0-or-later"
+LABEL "org.opencontainers.image.title"="OpenSCAD"
+LABEL "org.opencontainers.image.description"="The Programmers Solid 3D CAD Modeller"
+
 WORKDIR /openscad
