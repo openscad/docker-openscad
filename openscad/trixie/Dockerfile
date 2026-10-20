@@ -86,7 +86,7 @@ RUN apt-get -y full-upgrade
 RUN apt-get install -y --no-install-recommends \
 	libcairo2 libdouble-conversion3 libxml2 lib3mf1 libzip5 libharfbuzz0b \
 	libboost-thread1.83.0 libboost-program-options1.83.0 libboost-filesystem1.83.0 \
-	libboost-regex1.83.0 libmpfr6 libtbb12 libglu1-mesa libmimalloc3 \
+	libboost-regex1.83.0 libmpfr6 libtbb12 libglu1-mesa libgl1 libmimalloc3 \
 	libqt6multimedia6 libqt6concurrent6 libqt6core5compat6 libqt6openglwidgets6 \
 	libqscintilla2-qt6-15
 
