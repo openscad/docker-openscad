@@ -3,7 +3,7 @@ TARGET_64=x86_64-w64-mingw32.static.posix
 PLUGIN_DIRS=plugins/gcc14
 
 PKG_MXE_GCC="cc"
-PKG_MXE_DEP="mpfr eigen libxml2 freetype fontconfig harfbuzz cairo glib onetbb libzip lib3mf double-conversion nettle nsis"
+PKG_MXE_DEP="mpfr eigen libxml2 freetype fontconfig harfbuzz cairo glib onetbb libzip lib3mfv2 double-conversion nettle nsis"
 PKG_MXE_GUI="opencsg cgal qt6-qtbase qt6-qtmultimedia qt6-qtsvg qt6-qt5compat qt6-qscintilla2"
 PKG_MXE_ALL="$PKG_MXE_GCC $PKG_MXE_DEP $PKG_MXE_GUI"
 
